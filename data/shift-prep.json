@@ -1,0 +1,216 @@
+[
+  {
+    "id": "enbridge-sunrise",
+    "projectId": "enbridge-sunrise",
+    "requirements": [
+      {
+        "id": "da-test",
+        "label": "D&A Test",
+        "category": "compliance",
+        "daysBeforeStart": 30,
+        "note": "Must be completed within 30 days of shift start"
+      },
+      {
+        "id": "csts-2020",
+        "label": "CSTS 2020",
+        "category": "certification",
+        "daysBeforeStart": null,
+        "note": ""
+      },
+      {
+        "id": "whmis",
+        "label": "WHMIS",
+        "category": "certification",
+        "daysBeforeStart": null,
+        "note": ""
+      },
+      {
+        "id": "basic-first-aid",
+        "label": "Basic First Aid",
+        "category": "certification",
+        "daysBeforeStart": null,
+        "note": ""
+      },
+      {
+        "id": "bear-awareness",
+        "label": "Bear Awareness",
+        "category": "safety",
+        "daysBeforeStart": null,
+        "note": "Online course acceptable — eSafetyFirst Canada confirmed OK by McTavish"
+      },
+      {
+        "id": "bear-spray",
+        "label": "Bear Spray Training",
+        "category": "safety",
+        "daysBeforeStart": null,
+        "note": "In-person only — McTavish confirming date/details"
+      },
+      {
+        "id": "enbridge-env",
+        "label": "Enbridge Contractor Environment",
+        "category": "compliance",
+        "daysBeforeStart": null,
+        "note": "Online via BIStrainer — www.onlinelogin.ca, company code 208992909"
+      },
+      {
+        "id": "supervising-for-safety",
+        "label": "Supervising for Safety Training",
+        "category": "certification",
+        "daysBeforeStart": null,
+        "note": "WorkSafeBC — free, self-register. Required for Nate, Chris, Amber per Mike's email."
+      }
+    ],
+    "workerStatus": {
+      "nate-wilson": {
+        "da-test": {
+          "status": "expired",
+          "expiry": null,
+          "completedDate": "2026-05-20",
+          "notes": "May test expired — must redo within 30 days of shift start"
+        },
+        "csts-2020": {
+          "status": "complete",
+          "expiry": "2027-05-01",
+          "completedDate": null,
+          "notes": ""
+        },
+        "whmis": {
+          "status": "complete",
+          "expiry": "2027-03-15",
+          "completedDate": null,
+          "notes": ""
+        },
+        "basic-first-aid": {
+          "status": "complete",
+          "expiry": "2028-01-01",
+          "completedDate": null,
+          "notes": "Valid to 2028 per Jennifer's email"
+        },
+        "bear-awareness": {
+          "status": "complete",
+          "expiry": "2028-04-01",
+          "completedDate": "2025-04-01",
+          "notes": "eSafetyFirst Canada — Cert #221-126377. Confirmed acceptable by Jackie Schmitke (McTavish)."
+        },
+        "bear-spray": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "In-person — McTavish to confirm date"
+        },
+        "enbridge-env": {
+          "status": "complete",
+          "expiry": "2027-01-01",
+          "completedDate": null,
+          "notes": ""
+        },
+        "supervising-for-safety": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "WorkSafeBC free course — self-register"
+        }
+      },
+      "chris-stanley": {
+        "da-test": {
+          "status": "expired",
+          "expiry": null,
+          "completedDate": "2026-05-22",
+          "notes": "May test expired — must redo within 30 days of shift start"
+        },
+        "csts-2020": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Not on file — needs to complete"
+        },
+        "whmis": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Renewal needed"
+        },
+        "basic-first-aid": {
+          "status": "complete",
+          "expiry": "2026-11-01",
+          "completedDate": null,
+          "notes": ""
+        },
+        "bear-awareness": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Still needed — online course acceptable"
+        },
+        "bear-spray": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "In-person — McTavish to confirm date"
+        },
+        "enbridge-env": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Online via BIStrainer — www.onlinelogin.ca, company code 208992909"
+        },
+        "supervising-for-safety": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "WorkSafeBC free course — self-register"
+        }
+      },
+      "amber-mckay": {
+        "da-test": {
+          "status": "expired",
+          "expiry": null,
+          "completedDate": "2026-05-28",
+          "notes": "May test expired — must redo within 30 days of shift start"
+        },
+        "csts-2020": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Not on file — needs to complete"
+        },
+        "whmis": {
+          "status": "complete",
+          "expiry": "2027-04-10",
+          "completedDate": null,
+          "notes": ""
+        },
+        "basic-first-aid": {
+          "status": "complete",
+          "expiry": "2027-02-01",
+          "completedDate": null,
+          "notes": ""
+        },
+        "bear-awareness": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Still needed — online course acceptable"
+        },
+        "bear-spray": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "In-person — McTavish to confirm date"
+        },
+        "enbridge-env": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "Online via BIStrainer — www.onlinelogin.ca, company code 208992909"
+        },
+        "supervising-for-safety": {
+          "status": "pending",
+          "expiry": null,
+          "completedDate": null,
+          "notes": "WorkSafeBC free course — self-register"
+        }
+      }
+    }
+  }
+]

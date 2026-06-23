@@ -1,0 +1,62 @@
+[
+  {
+    "id": "enbridge-sunrise",
+    "name": "Enbridge Sunrise",
+    "client": "Enbridge / McTavish",
+    "location": "Fort St. John, BC",
+    "status": "active",
+    "startDate": "2026-05-01",
+    "endDate": "2026-09-30",
+    "description": "Pipeline construction and maintenance work. Enbridge contractor compliance required for all workers. Jackie Schmitke (McTavish) is the site contact for safety requirements.",
+    "workerIds": ["nate-wilson", "chris-stanley", "amber-mckay"],
+    "supervisorId": "jennifer-carter"
+  },
+  {
+    "id": "scottie-resources",
+    "name": "Scottie Resources Baseline",
+    "client": "Scottie Gold / SLR Consulting",
+    "location": "Scottie Gold Mine, BC",
+    "status": "active",
+    "startDate": "2026-03-26",
+    "endDate": "2026-10-31",
+    "description": "Baseline environmental monitoring for Scottie Resources. Field contact: Megan Charlton (mcharlton@slrconsulting.com). SLR field support includes wildlife, SWQ, and hydrogeology components.",
+    "workerIds": ["amber-mckay", "chris-stanley", "nate-wilson"],
+    "supervisorId": "jennifer-carter"
+  },
+  {
+    "id": "brucejack-em",
+    "name": "Brucejack Environmental Monitoring",
+    "client": "ERM / Newmont (Brucejack Mine)",
+    "location": "Brucejack Mine, BC",
+    "status": "active",
+    "startDate": "2026-05-30",
+    "endDate": "2026-09-30",
+    "description": "Environmental monitoring program at Brucejack Mine. Various components: wildlife surveys, fish (EF), vegetation, Arch/Veg (David LeBeau), AEMP sampling, mountain goat surveys. Benton Dalgleish (ERM) is the site contact.",
+    "workerIds": ["amber-mckay", "cole-angus", "nate-wilson", "devin-clayton", "chris-stanley"],
+    "supervisorId": "jennifer-carter"
+  },
+  {
+    "id": "ksm-seabridge",
+    "name": "KSM Seabridge",
+    "client": "Seabridge Gold",
+    "location": "KSM Mine Site, BC",
+    "status": "active",
+    "startDate": "2026-05-08",
+    "endDate": "2026-10-31",
+    "description": "Pre-clearing and environmental monitoring at KSM (Kerr-Sulphurets-Mitchell). Loc: Camp 11. Components include pre-clearing, goat/marmot surveys, wildlife-bear, groundwater, and meteorology.",
+    "workerIds": ["cole-angus", "chris-stanley", "amber-mckay", "nate-wilson"],
+    "supervisorId": "jennifer-carter"
+  },
+  {
+    "id": "prgt-pipeline",
+    "name": "PRGT Pipeline",
+    "client": "Western LNG / Prince Rupert Gas Transmission",
+    "location": "Nisga'a Territory, BC",
+    "status": "upcoming",
+    "startDate": "2026-04-01",
+    "endDate": "2026-12-31",
+    "description": "Prince Rupert Gas Transmission project through Nisga'a territory. Environmental and Indigenous engagement requirements.",
+    "workerIds": [],
+    "supervisorId": "jennifer-carter"
+  }
+]

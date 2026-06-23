@@ -1,0 +1,166 @@
+[
+  {
+    "id": "amber-brucejack-jun23",
+    "projectId": "brucejack-em",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-23",
+    "shiftEnd": "2026-06-29",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Standby day Jun 23, then Arch/Veg shift (David Le Beau) Jun 24–29."
+  },
+  {
+    "id": "nate-brucejack-jun19",
+    "projectId": "brucejack-em",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-06-19",
+    "shiftEnd": "2026-06-24",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Caleb - Vegetation component."
+  },
+  {
+    "id": "cole-ksm-jun22",
+    "projectId": "ksm-seabridge",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-06-22",
+    "shiftEnd": "2026-07-03",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Pre-clearing at KSM."
+  },
+  {
+    "id": "chris-scottie-jun18",
+    "projectId": "scottie-resources",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-06-18",
+    "shiftEnd": "2026-07-02",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [
+      {
+        "id": "chris-scottie-leg-1",
+        "order": 1,
+        "type": "self",
+        "from": "Gingolx",
+        "to": "Terrace",
+        "date": "",
+        "time": "",
+        "arrangedBy": "self",
+        "driverName": "",
+        "notes": "Chris arranging own transport",
+        "status": "confirmed"
+      }
+    ],
+    "notes": "SWQ - Hydrology - Air Quality (Jun 18–26), then general Scottie shift Jun 27–Jul 2. Field contact Megan Charlton."
+  },
+  {
+    "id": "amber-ksm-jul3",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-07-03",
+    "shiftEnd": "2026-07-17",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Preclear rotation."
+  },
+  {
+    "id": "nate-scottie-jul2",
+    "projectId": "scottie-resources",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-07-02",
+    "shiftEnd": "2026-07-08",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Vegetation and TEM component."
+  },
+  {
+    "id": "nate-ksm-jul10",
+    "projectId": "ksm-seabridge",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-07-10",
+    "shiftEnd": "2026-07-24",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Preclear rotation."
+  },
+  {
+    "id": "cole-ksm-aug2",
+    "projectId": "ksm-seabridge",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-08-02",
+    "shiftEnd": "2026-08-14",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Groundwater component."
+  },
+  {
+    "id": "amber-ksm-jul24",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-07-24",
+    "shiftEnd": "2026-08-07",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Preclear rotation."
+  },
+  {
+    "id": "nate-brucejack-jul24",
+    "projectId": "brucejack-em",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-07-24",
+    "shiftEnd": "2026-07-27",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Mountain Goat Surveys."
+  },
+  {
+    "id": "nate-ksm-aug7",
+    "projectId": "ksm-seabridge",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-08-07",
+    "shiftEnd": "2026-08-21",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Preclear rotation."
+  },
+  {
+    "id": "cole-brucejack-aug20",
+    "projectId": "brucejack-em",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-08-20",
+    "shiftEnd": "2026-09-01",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Vegetation - Caleb component."
+  },
+  {
+    "id": "amber-ksm-aug21",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-08-21",
+    "shiftEnd": "2026-08-28",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Preclear rotation."
+  },
+  {
+    "id": "chris-brucejack-aug16",
+    "projectId": "brucejack-em",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-08-16",
+    "shiftEnd": "2026-09-02",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "AEMP Sampling."
+  },
+  {
+    "id": "amber-ksm-sep5",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-09-05",
+    "shiftEnd": "2026-09-09",
+    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "legs": [],
+    "notes": "Meteorology component."
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "nate-bear-awareness",
+    "workerId": "nate-wilson",
+    "certTypeId": "bear-awareness",
+    "issuedDate": "2025-04-01",
+    "expiryDate": "2028-04-01",
+    "source": "email",
+    "documentRef": "eSafetyFirst Canada — Cert #221-126377",
+    "notes": "Confirmed acceptable by Jackie Schmitke (McTavish) for Enbridge Sunrise"
+  },
+  {
+    "id": "nate-basic-first-aid",
+    "workerId": "nate-wilson",
+    "certTypeId": "basic-first-aid",
+    "issuedDate": null,
+    "expiryDate": "2028-01-01",
+    "source": "email",
+    "documentRef": "",
+    "notes": "Valid to 2028 per Jennifer's email — exact issued date TBC from WorkHub/SharePoint"
+  }
+]
