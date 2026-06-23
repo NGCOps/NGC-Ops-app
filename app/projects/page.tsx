@@ -40,53 +40,24 @@ export default function ProjectsPage() {
   function ProjectCard({ project }: { project: typeof projects[0] }) {
     const col = projectColor(project.id);
     const workers = project.workerIds.map((id) => people.find((p) => p.id === id)).filter(Boolean);
-    const sp = shiftPreps.find((s) => s.projectId === project.id);
-    const projDeps = upcomingDeps.filter((d) => d.projectId === project.id);
-
-    let pendingItems = 0;
-    if (sp) for (const ws of Object.values(sp.workerStatus)) for (const cs of Object.values(ws)) if (cs.status === "pending" || cs.status === "expired") pendingItems++;
-    const movementTBD = projDeps.filter(deploymentHasTBD).length;
     const daysToStart = daysUntil(project.startDate);
+    const daysToEnd = daysUntil(project.endDate);
     const isStarted = daysToStart <= 0;
+    const statusLabel = isStarted ? `${daysToEnd}d left` : `Starts in ${daysToStart}d`;
 
     return (
       <Link href={`/projects/${project.id}`}>
-        <div className="bg-white rounded-xl border border-stone-200 p-5 hover:bg-stone-50 transition-colors cursor-pointer" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="min-w-0">
-              <h3 className="font-semibold text-stone-900">{project.name}</h3>
-              <div className="text-sm text-stone-400 mt-0.5">{project.client} · {project.location}</div>
-            </div>
-            <div className="text-right shrink-0">
-              <div className="text-sm font-semibold text-stone-600">
-                {isStarted ? "In progress" : `Starts in ${daysToStart}d`}
-              </div>
-              <div className="text-xs text-stone-400 mt-0.5">{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
-            </div>
+        <div className="bg-white rounded-xl border border-stone-200 p-4 flex items-center gap-4 hover:border-stone-300 hover:bg-stone-50 transition-all cursor-pointer" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
+          <div className="min-w-0 flex-1">
+            <div className="font-medium text-stone-900">{project.name}</div>
+            <div className="text-sm text-stone-500 truncate">{project.client}</div>
+            <div className="text-xs text-stone-400 mt-0.5">{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
           </div>
-
-          <div className="flex items-center gap-2 mt-3 flex-wrap">
-            {workers.length > 0 && (
-              <div className="flex -space-x-1">
-                {workers.slice(0, 5).map((w) => (
-                  <div key={w!.id} className="w-6 h-6 rounded-full bg-amber-600 border-2 border-white flex items-center justify-center" title={w!.name}>
-                    <span className="text-white text-[9px] font-bold">{w!.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {pendingItems > 0 ? (
-              <span className="text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full">⚠ {pendingItems} onboarding</span>
-            ) : sp ? (
-              <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">✓ Onboarding clear</span>
-            ) : null}
-            {movementTBD > 0 ? (
-              <span className="text-xs font-medium bg-red-50 text-red-700 border border-red-200 px-2 py-0.5 rounded-full">✗ {movementTBD} movement TBD</span>
-            ) : projDeps.length > 0 ? (
-              <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">✓ Movement sorted</span>
-            ) : null}
-            <span className="ml-auto text-stone-300">›</span>
+          <div className="shrink-0 text-right">
+            <div className="text-sm font-semibold text-stone-600">{statusLabel}</div>
+            <div className="text-xs text-stone-400 mt-0.5">{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
           </div>
+          <div className="text-stone-300 shrink-0">›</div>
         </div>
       </Link>
     );
