@@ -18,7 +18,10 @@
       "mcp__Claude_in_Chrome__javascript_tool",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(gh --version)"
     ]
   }
 }

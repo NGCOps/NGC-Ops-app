@@ -38,7 +38,7 @@ export default function AddProjectModal() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="px-4 py-2 rounded-lg text-sm font-semibold bg-white/15 text-white hover:bg-white/25 transition-colors"
+        className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#1e3829] text-white hover:bg-[#2d5a3d] transition-colors"
       >
         + Add Project
       </button>

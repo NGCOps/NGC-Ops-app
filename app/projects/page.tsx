@@ -2,7 +2,7 @@ import {
   getProjects, getPeople, getShiftPrep, getDeployments, deploymentHasTBD,
 } from "@/lib/data";
 import Link from "next/link";
-import { projectColor } from "@/lib/colors";
+import { clientColor } from "@/lib/colors";
 import AddProjectModal from "@/components/AddProjectModal";
 
 function fmt(d: string) {
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
   totalMovementTBD = upcomingDeps.filter(deploymentHasTBD).length;
 
   function ProjectCard({ project }: { project: typeof projects[0] }) {
-    const col = projectColor(project.id);
+    const col = clientColor(project.client || "");
     const workers = project.workerIds.map((id) => people.find((p) => p.id === id)).filter(Boolean);
     const daysToStart = daysUntil(project.startDate);
     const daysToEnd = daysUntil(project.endDate);
@@ -48,16 +48,16 @@ export default function ProjectsPage() {
 
     return (
       <Link href={`/projects/${project.id}`}>
-        <div className="rounded-xl p-4 flex flex-col gap-2 hover:opacity-90 transition-opacity cursor-pointer h-full" style={{ backgroundColor: col.bg }}>
+        <div className="bg-white rounded-xl border border-stone-200 p-4 flex flex-col gap-2 hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer h-full" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
           <div className="min-w-0 flex-1">
-            <div className="font-semibold text-white text-sm leading-snug">{project.name}</div>
-            <div className="text-xs mt-1 truncate" style={{ color: col.text }}>{project.client}</div>
+            <div className="font-semibold text-stone-900 text-sm leading-snug">{project.name}</div>
+            <div className="text-xs text-stone-500 mt-0.5 truncate">{project.client}</div>
           </div>
-          <div className="flex items-end justify-between mt-2">
-            <div className="text-xs" style={{ color: col.text }}>{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
+          <div className="flex items-end justify-between mt-1">
+            <div className="text-xs text-stone-400">{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
             <div className="text-right">
-              <div className="text-white text-xs font-semibold">{statusLabel}</div>
-              <div className="text-xs" style={{ color: col.text }}>{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
+              <div className="text-xs font-semibold" style={{ color: col.bg }}>{statusLabel}</div>
+              <div className="text-xs text-stone-400">{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
             </div>
           </div>
         </div>
@@ -66,11 +66,11 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen rounded-2xl p-6 space-y-8" style={{ backgroundColor: "#1e3829" }}>
+    <div className="space-y-8">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Projects</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{active.length} active</p>
+          <h1 className="text-2xl font-bold text-stone-900">Projects</h1>
+          <p className="text-sm text-stone-400 mt-1">{active.length} active</p>
         </div>
         <AddProjectModal />
       </div>
@@ -79,19 +79,19 @@ export default function ProjectsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {totalOnboardingPending > 0 && (
             <Link href="/shift-prep">
-              <div className="rounded-xl p-4 hover:opacity-90 transition-opacity" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-                <div className="text-2xl font-bold text-amber-400">{totalOnboardingPending}</div>
-                <div className="text-sm font-medium text-white mt-0.5">Onboarding items pending</div>
-                <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>View onboarding →</div>
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 hover:bg-amber-100/50 transition-colors">
+                <div className="text-2xl font-bold text-amber-600">{totalOnboardingPending}</div>
+                <div className="text-sm font-medium text-amber-700 mt-0.5">Onboarding items pending</div>
+                <div className="text-xs text-stone-400 mt-1">View onboarding →</div>
               </div>
             </Link>
           )}
           {totalMovementTBD > 0 && (
             <Link href="/logistics">
-              <div className="rounded-xl p-4 hover:opacity-90 transition-opacity" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-                <div className="text-2xl font-bold text-red-400">{totalMovementTBD}</div>
-                <div className="text-sm font-medium text-white mt-0.5">Movements unplanned</div>
-                <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>View movement →</div>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 hover:bg-red-100/50 transition-colors">
+                <div className="text-2xl font-bold text-red-600">{totalMovementTBD}</div>
+                <div className="text-sm font-medium text-red-700 mt-0.5">Movements unplanned</div>
+                <div className="text-xs text-stone-400 mt-1">View movement →</div>
               </div>
             </Link>
           )}
@@ -99,7 +99,7 @@ export default function ProjectsPage() {
       )}
 
       <section>
-        <h2 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Active</h2>
+        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Active</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {active.sort((a, b) => a.startDate.localeCompare(b.startDate)).map((p) => <ProjectCard key={p.id} project={p} />)}
         </div>
@@ -107,7 +107,7 @@ export default function ProjectsPage() {
 
       {upcoming.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>Upcoming</h2>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Upcoming</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {upcoming.map((p) => <ProjectCard key={p.id} project={p} />)}
           </div>
@@ -116,7 +116,7 @@ export default function ProjectsPage() {
 
       {complete.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Past / Complete</h2>
+          <h2 className="text-xs font-semibold text-stone-300 uppercase tracking-widest mb-3">Past / Complete</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {complete.map((p) => <ProjectCard key={p.id} project={p} />)}
           </div>

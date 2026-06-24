@@ -25,3 +25,9 @@ function hashId(id: string): number {
 export function projectColor(id: string) {
   return PALETTE[hashId(id) % PALETTE.length];
 }
+
+// Color by client — normalizes to first word so "ERM / Newmont" and "ERM" get the same color
+export function clientColor(client: string) {
+  const key = (client || "").trim().split(/[\s/,(]+/)[0].toLowerCase();
+  return PALETTE[hashId(key) % PALETTE.length];
+}
