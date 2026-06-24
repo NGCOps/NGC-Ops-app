@@ -27,6 +27,7 @@ export async function upsertCertification(cert: Omit<Certification, "id"> & { id
   write(data);
   revalidatePath(`/people/${cert.workerId}`);
   revalidatePath("/certifications");
+  revalidatePath("/projects", "layout");
 }
 
 export async function deleteCertification(certId: string, workerId: string) {
