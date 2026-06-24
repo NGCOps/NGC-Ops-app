@@ -47,46 +47,47 @@ export default function ProjectsPage() {
 
     return (
       <Link href={`/projects/${project.id}`}>
-        <div className="bg-white rounded-xl border border-stone-200 p-4 flex items-center gap-4 hover:border-stone-300 hover:bg-stone-50 transition-all cursor-pointer" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
+        <div className="rounded-xl p-4 flex flex-col gap-2 hover:opacity-90 transition-opacity cursor-pointer h-full" style={{ backgroundColor: col.bg }}>
           <div className="min-w-0 flex-1">
-            <div className="font-medium text-stone-900">{project.name}</div>
-            <div className="text-sm text-stone-500 truncate">{project.client}</div>
-            <div className="text-xs text-stone-400 mt-0.5">{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
+            <div className="font-semibold text-white text-sm leading-snug">{project.name}</div>
+            <div className="text-xs mt-1 truncate" style={{ color: col.text }}>{project.client}</div>
           </div>
-          <div className="shrink-0 text-right">
-            <div className="text-sm font-semibold text-stone-600">{statusLabel}</div>
-            <div className="text-xs text-stone-400 mt-0.5">{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
+          <div className="flex items-end justify-between mt-2">
+            <div className="text-xs" style={{ color: col.text }}>{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
+            <div className="text-right">
+              <div className="text-white text-xs font-semibold">{statusLabel}</div>
+              <div className="text-xs" style={{ color: col.text }}>{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
+            </div>
           </div>
-          <div className="text-stone-300 shrink-0">›</div>
         </div>
       </Link>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-h-screen rounded-2xl p-6 space-y-8" style={{ backgroundColor: "#1e3829" }}>
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">Projects</h1>
-        <p className="text-sm text-stone-400 mt-1">{active.length} active</p>
+        <h1 className="text-2xl font-bold text-white">Projects</h1>
+        <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{active.length} active</p>
       </div>
 
       {(totalOnboardingPending > 0 || totalMovementTBD > 0) && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {totalOnboardingPending > 0 && (
             <Link href="/shift-prep">
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 hover:bg-amber-100/50 transition-colors">
-                <div className="text-2xl font-bold text-amber-600">{totalOnboardingPending}</div>
-                <div className="text-sm font-medium text-amber-700 mt-0.5">Onboarding items pending</div>
-                <div className="text-xs text-stone-400 mt-1">View onboarding →</div>
+              <div className="rounded-xl p-4 hover:opacity-90 transition-opacity" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
+                <div className="text-2xl font-bold text-amber-400">{totalOnboardingPending}</div>
+                <div className="text-sm font-medium text-white mt-0.5">Onboarding items pending</div>
+                <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>View onboarding →</div>
               </div>
             </Link>
           )}
           {totalMovementTBD > 0 && (
             <Link href="/logistics">
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 hover:bg-red-100/50 transition-colors">
-                <div className="text-2xl font-bold text-red-600">{totalMovementTBD}</div>
-                <div className="text-sm font-medium text-red-700 mt-0.5">Movements unplanned</div>
-                <div className="text-xs text-stone-400 mt-1">View movement →</div>
+              <div className="rounded-xl p-4 hover:opacity-90 transition-opacity" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
+                <div className="text-2xl font-bold text-red-400">{totalMovementTBD}</div>
+                <div className="text-sm font-medium text-white mt-0.5">Movements unplanned</div>
+                <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>View movement →</div>
               </div>
             </Link>
           )}
@@ -94,16 +95,16 @@ export default function ProjectsPage() {
       )}
 
       <section>
-        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Active</h2>
-        <div className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Active</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {active.sort((a, b) => a.startDate.localeCompare(b.startDate)).map((p) => <ProjectCard key={p.id} project={p} />)}
         </div>
       </section>
 
       {upcoming.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Upcoming</h2>
-          <div className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>Upcoming</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {upcoming.map((p) => <ProjectCard key={p.id} project={p} />)}
           </div>
         </section>
@@ -111,19 +112,9 @@ export default function ProjectsPage() {
 
       {complete.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold text-stone-300 uppercase tracking-widest mb-3">Past / Complete</h2>
-          <div className="space-y-2">
-            {complete.map((project) => (
-              <Link key={project.id} href={`/projects/${project.id}`}>
-                <div className="bg-white rounded-lg border border-stone-100 px-5 py-3 flex items-center justify-between opacity-50 hover:opacity-70 transition-opacity">
-                  <div>
-                    <span className="font-medium text-stone-700 text-sm">{project.name}</span>
-                    <span className="text-stone-400 text-sm ml-2">· {project.client}</span>
-                  </div>
-                  <span className="text-xs text-stone-400">{fmt(project.startDate)} → {fmt(project.endDate)}</span>
-                </div>
-              </Link>
-            ))}
+          <h2 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Past / Complete</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {complete.map((p) => <ProjectCard key={p.id} project={p} />)}
           </div>
         </section>
       )}
