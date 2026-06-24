@@ -1,16 +1,14 @@
 import {
-  getProject, getProjects, getPeople, getPerson,
-  getDeploymentsForProject, deploymentHasTBD,
-  getCertTypes, getCertificationsForWorker,
+  getPeople, getPerson, deploymentHasTBD, getCertTypes,
 } from "@/lib/data";
+import {
+  dbGetProject, dbGetDeploymentsForProject, dbGetCertificationsForWorker, dbGetCertTypes,
+} from "@/lib/db-data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CertMatrix from "@/components/CertMatrix";
 
-export function generateStaticParams() {
-  const { getProjects } = require("@/lib/data");
-  return getProjects().map((p: { id: string }) => ({ id: p.id }));
-}
+export const dynamic = "force-dynamic";
 
 const statusConfig: Record<string, { label: string; classes: string }> = {
   active:   { label: "Active",    classes: "bg-emerald-100 text-emerald-800" },
@@ -34,13 +32,13 @@ function daysUntil(d: string): number {
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const project = getProject(id);
+  const project = await dbGetProject(id);
   if (!project) notFound();
 
   const people = getPeople();
-  const deployments = getDeploymentsForProject(id);
+  const deployments = await dbGetDeploymentsForProject(id);
   const supervisor = getPerson(project.supervisorId);
-  const certTypes = getCertTypes();
+  const certTypes = await dbGetCertTypes();
 
   const workers = project.workerIds
     .map((wid) => people.find((p) => p.id === wid))
@@ -50,9 +48,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
     .map((cid) => certTypes.find((ct) => ct.id === cid))
     .filter(Boolean) as NonNullable<ReturnType<typeof certTypes.find>>[];
 
-  const certsByWorker: Record<string, ReturnType<typeof getCertificationsForWorker>> = {};
+  const certsByWorker: Record<string, Awaited<ReturnType<typeof dbGetCertificationsForWorker>>> = {};
   for (const w of workers) {
-    certsByWorker[w.id] = getCertificationsForWorker(w.id);
+    certsByWorker[w.id] = await dbGetCertificationsForWorker(w.id);
   }
 
   const tbdDeployments = deployments.filter(deploymentHasTBD);

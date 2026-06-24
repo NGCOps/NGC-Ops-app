@@ -1,9 +1,12 @@
 import {
-  getProjects, getPeople, getShiftPrep, getDeployments, deploymentHasTBD,
+  getPeople, getShiftPrep, getDeployments, deploymentHasTBD,
 } from "@/lib/data";
+import { dbGetProjects } from "@/lib/db-data";
 import Link from "next/link";
 import { clientColor } from "@/lib/colors";
 import AddProjectModal from "@/components/AddProjectModal";
+
+export const dynamic = "force-dynamic";
 
 function fmt(d: string) {
   return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
@@ -17,8 +20,8 @@ function daysUntil(d: string) {
   return Math.ceil((t - n.getTime()) / 86400000);
 }
 
-export default function ProjectsPage() {
-  const projects = getProjects();
+export default async function ProjectsPage() {
+  const projects = await dbGetProjects();
   const people = getPeople();
   const shiftPreps = getShiftPrep();
   const deployments = getDeployments();

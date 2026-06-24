@@ -21,7 +21,10 @@
       "Bash(git commit *)",
       "Bash(git remote *)",
       "Bash(git push *)",
-      "Bash(gh --version)"
+      "Bash(gh --version)",
+      "Bash(python3 -c \"print\\(open\\('/Users/jennifercarter/.claude/projects/-Users-jennifercarter-Documents-ngc-ops-app/b94d7179-bcb8-413e-9a2c-d2d615e5f39b/tool-results/mcp-b8ffad5e-9a9a-4c4c-a014-945ed317acda-read_resource-1782334067091.txt'\\).read\\(\\)[0:80000]\\)\")",
+      "Bash(npm install *)",
+      "Bash(npm list *)"
     ]
   }
 }
