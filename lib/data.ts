@@ -20,6 +20,7 @@ export interface Project {
   description: string;
   workerIds: string[];
   supervisorId: string;
+  requiredCerts?: string[];
 }
 
 export function getProjects(): Project[] { return projectsData as Project[]; }

@@ -1,86 +1,18 @@
 [
-  {
-    "id": "whmis",
-    "label": "WHMIS",
-    "category": "certification",
-    "validityMonths": 24,
-    "notes": ""
-  },
-  {
-    "id": "basic-first-aid",
-    "label": "Basic First Aid",
-    "category": "certification",
-    "validityMonths": 24,
-    "notes": ""
-  },
-  {
-    "id": "csts-2020",
-    "label": "CSTS 2020",
-    "category": "certification",
-    "validityMonths": 36,
-    "notes": ""
-  },
-  {
-    "id": "h2s-alive",
-    "label": "H2S Alive",
-    "category": "certification",
-    "validityMonths": 36,
-    "notes": ""
-  },
-  {
-    "id": "da-test",
-    "label": "D&A Test",
-    "category": "compliance",
-    "validityMonths": null,
-    "notes": "Project-specific. Enbridge requires within 30 days of shift start."
-  },
-  {
-    "id": "bear-awareness",
-    "label": "Bear Awareness",
-    "category": "safety",
-    "validityMonths": null,
-    "notes": ""
-  },
-  {
-    "id": "bear-spray",
-    "label": "Bear Spray Training",
-    "category": "safety",
-    "validityMonths": null,
-    "notes": ""
-  },
-  {
-    "id": "enbridge-env",
-    "label": "Enbridge Contractor Environment",
-    "category": "compliance",
-    "validityMonths": 12,
-    "notes": "Required for all Enbridge site work."
-  },
-  {
-    "id": "fall-protection",
-    "label": "Fall Protection",
-    "category": "safety",
-    "validityMonths": 36,
-    "notes": ""
-  },
-  {
-    "id": "tdg",
-    "label": "TDG (Transport of Dangerous Goods)",
-    "category": "certification",
-    "validityMonths": 36,
-    "notes": ""
-  },
-  {
-    "id": "supervising-for-safety",
-    "label": "Supervising for Safety Training",
-    "category": "certification",
-    "validityMonths": null,
-    "notes": "WorkSafeBC course — free, self-register online."
-  },
-  {
-    "id": "ground-disturbance-l2",
-    "label": "Ground Disturbance Level 2",
-    "category": "certification",
-    "validityMonths": null,
-    "notes": "Required only if disturbing ground on Enbridge site. McTavish to confirm applicability."
-  }
+  { "id": "whmis", "label": "WHMIS", "category": "certification", "validityMonths": 24, "notes": "" },
+  { "id": "basic-first-aid", "label": "Basic First Aid", "category": "certification", "validityMonths": 24, "notes": "" },
+  { "id": "csts-2020", "label": "CSTS 2020", "category": "certification", "validityMonths": 36, "notes": "" },
+  { "id": "h2s-alive", "label": "H2S Alive", "category": "certification", "validityMonths": 36, "notes": "" },
+  { "id": "da-test", "label": "D&A Test", "category": "compliance", "validityMonths": null, "notes": "Project-specific validity. Enbridge: within 30 days. KSM: within 90 days." },
+  { "id": "bear-awareness", "label": "Bear Awareness", "category": "safety", "validityMonths": null, "notes": "" },
+  { "id": "bear-spray", "label": "Bear Spray Training", "category": "safety", "validityMonths": null, "notes": "" },
+  { "id": "enbridge-env", "label": "Enbridge Contractor Environment", "category": "compliance", "validityMonths": 12, "notes": "Annual BIStrainer course. Company code 208992909." },
+  { "id": "supervising-for-safety", "label": "Supervising for Safety", "category": "certification", "validityMonths": null, "notes": "WorkSafeBC online course — supervisingforsafety.com" },
+  { "id": "ground-disturbance-l2", "label": "Ground Disturbance Level 2", "category": "certification", "validityMonths": null, "notes": "Required only if disturbing ground on Enbridge site." },
+  { "id": "ksm-leadership-orientation", "label": "KSM Leadership Orientation", "category": "compliance", "validityMonths": 12, "notes": "Completed via BisSafety (Seabridge Gold). Optional Training section." },
+  { "id": "ksm-project-orientation", "label": "KSM Project Orientation 2026", "category": "compliance", "validityMonths": 12, "notes": "Completed via BisSafety (Seabridge Gold). Training section." },
+  { "id": "ksm-badge-access", "label": "KSM Badge Access Request", "category": "compliance", "validityMonths": null, "notes": "Form submitted via BisSafety. Required before arrival on site." },
+  { "id": "drivers-license", "label": "Driver's License", "category": "compliance", "validityMonths": null, "notes": "Copy uploaded to BisSafety for KSM." },
+  { "id": "fall-protection", "label": "Fall Protection", "category": "safety", "validityMonths": 36, "notes": "" },
+  { "id": "tdg", "label": "TDG (Transport of Dangerous Goods)", "category": "certification", "validityMonths": 36, "notes": "" }
 ]

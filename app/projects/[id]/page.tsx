@@ -1,6 +1,7 @@
 import {
   getProject, getProjects, getPeople, getPerson,
   getShiftPrepForProject, getDeploymentsForProject, deploymentHasTBD,
+  getCertTypes, getCertificationsForWorker, isCertExpired, isCertExpiringSoon,
 } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -56,6 +57,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   const workers = project.workerIds
     .map((wid) => people.find((p) => p.id === wid))
+    .filter(Boolean);
+
+  const certTypes = getCertTypes();
+  const requiredCerts = (project.requiredCerts ?? [])
+    .map((cid) => certTypes.find((ct) => ct.id === cid))
     .filter(Boolean);
 
   const cfg = statusConfig[project.status] ?? statusConfig.active;
@@ -143,6 +149,50 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           )}
         </div>
       </div>
+
+      {/* Cert compliance matrix */}
+      {requiredCerts.length > 0 && (
+        <section>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Certification Requirements</h2>
+          <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
+            {/* Header row */}
+            <div className="grid border-b border-stone-100" style={{ gridTemplateColumns: `200px repeat(${workers.length}, 1fr)` }}>
+              <div className="px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wide">Cert / Training</div>
+              {workers.map((w) => (
+                <div key={w!.id} className="px-3 py-3 text-xs font-semibold text-stone-700 text-center border-l border-stone-100 truncate">{w!.name.split(" ")[0]}</div>
+              ))}
+            </div>
+            {/* Cert rows */}
+            {requiredCerts.map((ct, i) => (
+              <div key={ct!.id} className={`grid border-b border-stone-50 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-stone-50/50"}`} style={{ gridTemplateColumns: `200px repeat(${workers.length}, 1fr)` }}>
+                <div className="px-4 py-3 text-sm text-stone-700 flex items-center gap-2">
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ct!.category === "compliance" ? "bg-blue-400" : ct!.category === "safety" ? "bg-amber-400" : "bg-stone-300"}`} />
+                  {ct!.label}
+                </div>
+                {workers.map((w) => {
+                  const certs = getCertificationsForWorker(w!.id);
+                  const match = certs.find((c) => c.certTypeId === ct!.id);
+                  const expired = match && isCertExpired(match);
+                  const expiring = match && !expired && isCertExpiringSoon(match);
+                  return (
+                    <div key={w!.id} className="border-l border-stone-100 flex items-center justify-center py-3">
+                      {!match ? (
+                        <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">Missing</span>
+                      ) : expired ? (
+                        <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">Expired</span>
+                      ) : expiring ? (
+                        <span className="text-xs font-medium bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full">Expiring</span>
+                      ) : (
+                        <span className="text-lg">✓</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Staff section */}
       <section>
