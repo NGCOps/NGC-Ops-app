@@ -3,6 +3,7 @@ import {
 } from "@/lib/data";
 import Link from "next/link";
 import { projectColor } from "@/lib/colors";
+import AddProjectModal from "@/components/AddProjectModal";
 
 function fmt(d: string) {
   return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
@@ -66,9 +67,12 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen rounded-2xl p-6 space-y-8" style={{ backgroundColor: "#1e3829" }}>
-      <div>
-        <h1 className="text-2xl font-bold text-white">Projects</h1>
-        <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{active.length} active</p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Projects</h1>
+          <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{active.length} active</p>
+        </div>
+        <AddProjectModal />
       </div>
 
       {(totalOnboardingPending > 0 || totalMovementTBD > 0) && (
