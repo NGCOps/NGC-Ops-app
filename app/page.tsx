@@ -5,7 +5,7 @@ import {
 } from "@/lib/data";
 import type { Deployment } from "@/lib/data";
 import OutstandingSection from "@/components/OutstandingSection";
-import { projectColor } from "@/lib/colors";
+import { clientColor, projectColor } from "@/lib/colors";
 
 const LEG_STATUS_COLOR: Record<string, string> = {
   confirmed: "#10b981",
@@ -370,11 +370,11 @@ export default function Dashboard() {
           <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Active Projects</h2>
           <Link href="/projects" className="text-xs text-[#1e3829] hover:underline font-medium">View all →</Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {activeProjects
             .sort((a, b) => a.startDate.localeCompare(b.startDate))
             .map((p) => {
-              const col = projectColor(p.id);
+              const col = clientColor(p.client);
               const sp = shiftPreps.find((s) => s.projectId === p.id);
               const projDeps = upcomingDeployments.filter((d) => d.projectId === p.id);
 
@@ -391,39 +391,41 @@ export default function Dashboard() {
 
               return (
                 <Link key={p.id} href={`/projects/${p.id}`}>
-                  <div
-                    className="rounded-xl border border-stone-200 p-4 hover:bg-stone-50 transition-colors cursor-pointer bg-white"
-                    style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}
-                  >
-                    <div className="flex items-start justify-between gap-2">
+                  <div className="bg-white rounded-xl border border-stone-200 p-4 flex flex-col gap-2 hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer h-full" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
+                    <div className="min-w-0 flex-1 flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <div className="font-semibold text-sm text-stone-900">{p.name}</div>
-                        <div className="text-xs text-stone-400 mt-0.5">{p.client}</div>
+                        <div className="font-semibold text-stone-900 text-sm leading-snug">{p.name}</div>
+                        <div className="text-xs text-stone-500 mt-0.5 truncate">{p.client}</div>
                       </div>
-                      <div className="text-right shrink-0">
-                        <div className="text-sm font-bold text-stone-700">
-                          {isStarted ? `${daysLeft}d left` : `${daysToStart}d away`}
+                      <span
+                        title={p.requiredCerts?.length ? `${p.name} — cert requirements defined` : `${p.name} — no special certs required`}
+                        className="mt-0.5 shrink-0 w-2.5 h-2.5 rounded-full"
+                        style={{ backgroundColor: p.requiredCerts?.length ? col.border : "#22c55e" }}
+                      />
+                    </div>
+                    <div className="flex items-end justify-between">
+                      <div className="text-xs text-stone-400">{fmt(p.startDate)} → {fmt(p.endDate)}</div>
+                      <div className="text-right">
+                        <div className="text-xs font-semibold" style={{ color: col.bg }}>
+                          {isStarted ? `${daysLeft}d left` : `Starts in ${daysToStart}d`}
                         </div>
-                        <div className="text-[10px] text-stone-400">{fmt(p.startDate)} → {fmt(p.endDate)}</div>
+                        <div className="text-xs text-stone-400">{p.workerIds.length} worker{p.workerIds.length !== 1 ? "s" : ""}</div>
                       </div>
                     </div>
-                    <div className="flex gap-1.5 mt-3 flex-wrap">
-                      {p.workerIds.length > 0 && (
-                        <span className="text-[10px] bg-stone-100 text-stone-500 px-2 py-0.5 rounded-full">
-                          {p.workerIds.length} worker{p.workerIds.length !== 1 ? "s" : ""}
-                        </span>
-                      )}
-                      {onboardingPending > 0 ? (
-                        <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-medium border border-amber-200">⚠ {onboardingPending} onboarding</span>
-                      ) : sp ? (
-                        <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200">✓ Onboarding clear</span>
-                      ) : null}
-                      {movementTBD > 0 ? (
-                        <span className="text-[10px] bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-medium border border-red-200">✗ {movementTBD} movement TBD</span>
-                      ) : projDeps.length > 0 ? (
-                        <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200">✓ Movement sorted</span>
-                      ) : null}
-                    </div>
+                    {(onboardingPending > 0 || sp || movementTBD > 0 || projDeps.length > 0) && (
+                      <div className="flex gap-1.5 flex-wrap pt-2 border-t border-stone-100">
+                        {onboardingPending > 0 ? (
+                          <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-medium border border-amber-200">⚠ {onboardingPending} onboarding</span>
+                        ) : sp ? (
+                          <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200">✓ Onboarding clear</span>
+                        ) : null}
+                        {movementTBD > 0 ? (
+                          <span className="text-[10px] bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-medium border border-red-200">✗ {movementTBD} movement TBD</span>
+                        ) : projDeps.length > 0 ? (
+                          <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200">✓ Movement sorted</span>
+                        ) : null}
+                      </div>
+                    )}
                   </div>
                 </Link>
               );
