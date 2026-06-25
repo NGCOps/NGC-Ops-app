@@ -10,7 +10,8 @@
     "description": "Pipeline construction and maintenance work. Enbridge contractor compliance required for all workers. Jackie Schmitke (McTavish) is the site contact for safety requirements.",
     "workerIds": ["nate-wilson", "chris-stanley", "amber-mckay"],
     "supervisorId": "jennifer-carter",
-    "requiredCerts": ["da-test", "enbridge-env", "csts-2020", "whmis", "basic-first-aid", "bear-awareness", "bear-spray", "supervising-for-safety", "ground-disturbance-l2"]
+    "requiredCerts": ["da-test", "enbridge-env", "csts-2020", "whmis", "basic-first-aid", "bear-awareness", "bear-spray", "supervising-for-safety", "ground-disturbance-l2"],
+    "tier": "high"
   },
   {
     "id": "scottie-resources",
@@ -22,7 +23,8 @@
     "endDate": "2026-10-31",
     "description": "Baseline environmental monitoring for Scottie Resources. Field contact: Megan Charlton (mcharlton@slrconsulting.com). SLR field support includes wildlife, SWQ, and hydrogeology components.",
     "workerIds": ["amber-mckay", "chris-stanley", "nate-wilson"],
-    "supervisorId": "jennifer-carter"
+    "supervisorId": "jennifer-carter",
+    "tier": "standard"
   },
   {
     "id": "brucejack-em",
@@ -34,7 +36,8 @@
     "endDate": "2026-09-30",
     "description": "Environmental monitoring program at Brucejack Mine. Various components: wildlife surveys, fish (EF), vegetation, Arch/Veg (David LeBeau), AEMP sampling, mountain goat surveys. Benton Dalgleish (ERM) is the site contact.",
     "workerIds": ["amber-mckay", "cole-angus", "nate-wilson", "devin-clayton", "chris-stanley"],
-    "supervisorId": "jennifer-carter"
+    "supervisorId": "jennifer-carter",
+    "tier": "high"
   },
   {
     "id": "ksm-seabridge",
@@ -47,7 +50,8 @@
     "description": "Pre-clearing and environmental monitoring at KSM (Kerr-Sulphurets-Mitchell). Loc: Camp 11. Components include pre-clearing, goat/marmot surveys, wildlife-bear, groundwater, and meteorology.",
     "workerIds": ["cole-angus", "chris-stanley", "amber-mckay", "nate-wilson"],
     "supervisorId": "jennifer-carter",
-    "requiredCerts": ["da-test", "ksm-leadership-orientation", "ksm-project-orientation", "ksm-badge-access", "whmis", "drivers-license"]
+    "requiredCerts": ["da-test", "ksm-leadership-orientation", "ksm-project-orientation", "ksm-badge-access", "whmis", "drivers-license"],
+    "tier": "high"
   },
   {
     "id": "prgt-pipeline",

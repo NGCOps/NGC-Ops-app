@@ -30,6 +30,11 @@ export async function dbGetCertificationsForWorker(workerId: string): Promise<Ce
   return rows.map((r) => r.data as Certification);
 }
 
+export async function dbGetAllCertifications(): Promise<Certification[]> {
+  const rows = await sql`SELECT data FROM certifications`;
+  return rows.map((r) => r.data as Certification);
+}
+
 export async function dbUpsertCertification(cert: Certification): Promise<void> {
   await sql`INSERT INTO certifications (id, worker_id, data) VALUES (${cert.id}, ${cert.workerId}, ${JSON.stringify(cert)}) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, worker_id = EXCLUDED.worker_id`;
 }

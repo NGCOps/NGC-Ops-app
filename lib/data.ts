@@ -21,6 +21,7 @@ export interface Project {
   workerIds: string[];
   supervisorId: string;
   requiredCerts?: string[];
+  tier?: "high" | "medium" | "standard";
 }
 
 export function getProjects(): Project[] { return projectsData as Project[]; }
