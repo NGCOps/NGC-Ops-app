@@ -57,9 +57,11 @@ export default async function ProjectsPage() {
               <div className="font-semibold text-stone-900 text-sm leading-snug">{project.name}</div>
               <div className="text-xs text-stone-500 mt-0.5 truncate">{project.client}</div>
             </div>
-            {project.requiredCerts?.length ? (
-              <span title={`${project.name} — cert requirements defined`} className="mt-0.5 shrink-0 w-2.5 h-2.5 rounded-full" style={{ backgroundColor: col.border }} />
-            ) : null}
+            <span
+              title={project.requiredCerts?.length ? `${project.name} — cert requirements defined` : `${project.name} — no special certs required`}
+              className="mt-0.5 shrink-0 w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: project.requiredCerts?.length ? col.border : "#22c55e" }}
+            />
           </div>
           <div className="flex items-end justify-between mt-1">
             <div className="text-xs text-stone-400">{fmtShort(project.startDate)} → {fmtShort(project.endDate)}</div>
