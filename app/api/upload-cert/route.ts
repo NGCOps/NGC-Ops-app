@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   const ext = file.name.split(".").pop() ?? "pdf";
   const blob = await put(`certs/${certId}.${ext}`, file, {
-    access: "public",
+    access: "private",
     contentType: file.type || "application/octet-stream",
   });
 
