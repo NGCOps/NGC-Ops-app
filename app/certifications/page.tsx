@@ -1,6 +1,9 @@
-import { getPeople, getCertTypes, getCertificationsForWorker, isCertExpired, isCertExpiringSoon } from "@/lib/data";
+import { getPeople, getCertTypes, isCertExpired, isCertExpiringSoon } from "@/lib/data";
+import { dbGetAllCertifications, dbGetCertTypes } from "@/lib/db-data";
 import type { PersonGroup } from "@/lib/data";
 import CertEditor from "@/components/CertEditor";
+
+export const dynamic = "force-dynamic";
 
 const groups: { key: PersonGroup; label: string }[] = [
   { key: "env-tech", label: "Environmental Technicians" },
@@ -20,18 +23,21 @@ function initials(name: string) {
   return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 }
 
-export default function CertificationsPage() {
+export default async function CertificationsPage() {
   const people = getPeople().filter((p) => p.active);
-  const certTypes = getCertTypes();
+  const [certTypes, allCerts] = await Promise.all([dbGetCertTypes(), dbGetAllCertifications()]);
+
+  const certsByWorker = new Map<string, typeof allCerts>();
+  for (const cert of allCerts) {
+    if (!certsByWorker.has(cert.workerId)) certsByWorker.set(cert.workerId, []);
+    certsByWorker.get(cert.workerId)!.push(cert);
+  }
 
   let totalExpired = 0, totalExpiring = 0, totalValid = 0;
-  const fieldPeople = people.filter((p) => p.type === "field" || p.type === "supervisor");
-  for (const person of fieldPeople) {
-    for (const c of getCertificationsForWorker(person.id)) {
-      if (isCertExpired(c)) totalExpired++;
-      else if (isCertExpiringSoon(c)) totalExpiring++;
-      else totalValid++;
-    }
+  for (const cert of allCerts) {
+    if (isCertExpired(cert)) totalExpired++;
+    else if (isCertExpiringSoon(cert)) totalExpiring++;
+    else totalValid++;
   }
 
   return (
@@ -43,18 +49,18 @@ export default function CertificationsPage() {
         </div>
         <div className="flex gap-3">
           {totalExpired > 0 && (
-            <div className="bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-center">
+            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-2 text-center">
               <div className="text-lg font-bold text-red-600">{totalExpired}</div>
               <div className="text-xs text-red-500">Expired</div>
             </div>
           )}
           {totalExpiring > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-center">
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-2 text-center">
               <div className="text-lg font-bold text-amber-600">{totalExpiring}</div>
-              <div className="text-xs text-amber-600">Expiring</div>
+              <div className="text-xs text-amber-600">Expiring soon</div>
             </div>
           )}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 text-center">
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2 text-center">
             <div className="text-lg font-bold text-emerald-600">{totalValid}</div>
             <div className="text-xs text-emerald-600">Valid</div>
           </div>
@@ -69,7 +75,7 @@ export default function CertificationsPage() {
             <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">{label}</h2>
             <div className="space-y-4">
               {members.map((person) => {
-                const certs = getCertificationsForWorker(person.id);
+                const certs = certsByWorker.get(person.id) ?? [];
                 const expired = certs.filter(isCertExpired).length;
                 const expiring = certs.filter((c) => !isCertExpired(c) && isCertExpiringSoon(c)).length;
                 return (
@@ -82,10 +88,11 @@ export default function CertificationsPage() {
                         <div className="font-semibold text-stone-900">{person.name}</div>
                         <div className="text-xs text-stone-400">{person.role}</div>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 flex-wrap justify-end">
                         {expired > 0 && <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">{expired} expired</span>}
                         {expiring > 0 && <span className="text-xs font-medium bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full">{expiring} expiring</span>}
-                        {certs.length === 0 && <span className="text-xs text-stone-400 italic">No records</span>}
+                        {certs.length === 0 && <span className="text-xs text-stone-300 italic">No records</span>}
+                        {certs.length > 0 && !expired && !expiring && <span className="text-xs font-medium bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-full">{certs.length} valid</span>}
                       </div>
                     </div>
                     <div className="p-4">

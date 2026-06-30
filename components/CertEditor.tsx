@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef } from "react";
 import { upsertCertification, deleteCertification } from "@/app/actions/updateCertRecord";
 import type { Certification, CertType, CertSource } from "@/lib/data";
 
@@ -12,7 +12,7 @@ const sourceOptions: { value: CertSource; label: string }[] = [
   { value: "other",      label: "Other" },
 ];
 
-const inputCls = "w-full text-sm bg-slate-800 border border-slate-600 text-slate-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 placeholder:text-slate-600";
+const inputCls = "w-full text-sm bg-white border border-stone-200 text-stone-800 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-400 placeholder:text-stone-300";
 
 interface Props {
   workerId: string;
@@ -31,14 +31,14 @@ function certStatus(cert: Certification): "valid" | "expiring" | "expired" | "no
 }
 
 const statusStyle: Record<string, string> = {
-  valid:        "bg-emerald-500/15 text-emerald-400",
-  expiring:     "bg-amber-500/15 text-amber-400",
-  expired:      "bg-red-500/15 text-red-400",
-  "no-expiry":  "bg-slate-700 text-slate-400",
+  valid:        "bg-emerald-50 text-emerald-700 border border-emerald-200",
+  expiring:     "bg-amber-50 text-amber-700 border border-amber-200",
+  expired:      "bg-red-50 text-red-700 border border-red-200",
+  "no-expiry":  "bg-stone-100 text-stone-500 border border-stone-200",
 };
 
 const statusDot: Record<string, string> = {
-  valid: "bg-emerald-500", expiring: "bg-amber-500", expired: "bg-red-500", "no-expiry": "bg-slate-600",
+  valid: "bg-emerald-500", expiring: "bg-amber-400", expired: "bg-red-500", "no-expiry": "bg-stone-300",
 };
 
 function formatDate(d: string | null) {
@@ -46,19 +46,30 @@ function formatDate(d: string | null) {
   return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
 }
 
-function CertRow({ cert, certType, workerId, onDelete }: {
-  cert: Certification; certType: CertType | undefined; workerId: string; onDelete: () => void;
+function isUrl(s: string) {
+  return s?.startsWith("http://") || s?.startsWith("https://");
+}
+
+function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
+  cert: Certification;
+  certType: CertType | undefined;
+  workerId: string;
+  onDelete: () => void;
+  onUpdate: (updated: Certification) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [form, setForm] = useState({ ...cert });
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const status = certStatus(cert);
 
-  function save() {
+  function save(updated = form) {
     startTransition(async () => {
-      await upsertCertification(form);
+      await upsertCertification(updated);
+      onUpdate(updated);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     });
@@ -71,62 +82,105 @@ function CertRow({ cert, certType, workerId, onDelete }: {
     });
   }
 
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("certId", cert.id);
+      const res = await fetch("/api/upload-cert", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.url) {
+        const updated = { ...form, documentRef: data.url };
+        setForm(updated);
+        save(updated);
+      }
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  }
+
   return (
-    <div className="rounded-lg border border-slate-700/50 bg-slate-800/30">
-      <button onClick={() => setExpanded((e) => !e)} className="w-full flex items-center gap-3 px-4 py-3 text-left">
+    <div className="rounded-lg border border-stone-200 bg-white">
+      <button onClick={() => setExpanded((e) => !e)} className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-stone-50 transition-colors rounded-lg">
         <div className={`w-2 h-2 rounded-full shrink-0 ${statusDot[status]}`} />
         <div className="flex-1 min-w-0">
-          <span className="text-sm font-medium text-slate-200">{certType?.label ?? cert.certTypeId}</span>
+          <span className="text-sm font-medium text-stone-800">{certType?.label ?? cert.certTypeId}</span>
           {cert.expiryDate && (
-            <span className="text-xs text-slate-500 ml-2">
+            <span className="text-xs text-stone-400 ml-2">
               {status === "expired" ? "Expired " : "Expires "}{formatDate(cert.expiryDate)}
             </span>
           )}
-          {cert.source && <span className="text-xs text-slate-600 ml-2">· {cert.source}</span>}
+          {cert.source && <span className="text-xs text-stone-300 ml-2">· {cert.source}</span>}
         </div>
+        {isUrl(form.documentRef) && (
+          <span className="text-xs text-stone-400 shrink-0">📎 doc</span>
+        )}
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${statusStyle[status]}`}>
           {status === "no-expiry" ? "No expiry" : status === "expiring" ? "Expiring soon" : status === "expired" ? "Expired" : "Valid"}
         </span>
-        <span className="text-slate-600 text-sm shrink-0">{expanded ? "▲" : "▼"}</span>
+        <span className="text-stone-300 text-sm shrink-0">{expanded ? "▲" : "▼"}</span>
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 pt-2 border-t border-slate-700/50 space-y-3">
+        <div className="px-4 pb-4 pt-2 border-t border-stone-100 space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">Issued Date</label>
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wide block mb-1">Issued Date</label>
               <input type="date" value={form.issuedDate ?? ""} onChange={(e) => setForm((f) => ({ ...f, issuedDate: e.target.value || null }))} className={inputCls} />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">Expiry Date</label>
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wide block mb-1">Expiry Date</label>
               <input type="date" value={form.expiryDate ?? ""} onChange={(e) => setForm((f) => ({ ...f, expiryDate: e.target.value || null }))} className={inputCls} />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">Source</label>
-              <select value={form.source} onChange={(e) => setForm((f) => ({ ...f, source: e.target.value as CertSource }))}
-                className={inputCls}>
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wide block mb-1">Source</label>
+              <select value={form.source} onChange={(e) => setForm((f) => ({ ...f, source: e.target.value as CertSource }))} className={inputCls}>
                 {sourceOptions.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">Document Ref</label>
-              <input value={form.documentRef} onChange={(e) => setForm((f) => ({ ...f, documentRef: e.target.value }))} placeholder="File name or SharePoint path" className={inputCls} />
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wide block mb-1">Document</label>
+              {isUrl(form.documentRef) ? (
+                <div className="flex items-center gap-2">
+                  <a href={form.documentRef} target="_blank" rel="noopener noreferrer"
+                    className="flex-1 text-sm text-[#1e3829] underline truncate">
+                    View document ↗
+                  </a>
+                  <button onClick={() => { const u = { ...form, documentRef: "" }; setForm(u); save(u); }}
+                    className="text-xs text-stone-400 hover:text-red-500 transition-colors shrink-0">
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <input ref={fileRef} type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onChange={handleFileUpload}
+                    className="hidden" id={`upload-${cert.id}`} />
+                  <label htmlFor={`upload-${cert.id}`}
+                    className="flex-1 text-center text-sm border border-dashed border-stone-300 rounded-lg px-3 py-2 text-stone-400 hover:border-stone-400 hover:text-stone-600 cursor-pointer transition-colors">
+                    {uploading ? "Uploading…" : "Upload file"}
+                  </label>
+                </div>
+              )}
             </div>
             <div className="sm:col-span-2">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">Notes</label>
+              <label className="text-xs font-semibold text-stone-400 uppercase tracking-wide block mb-1">Notes</label>
               <textarea value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} rows={2} className={inputCls + " resize-none"} />
             </div>
           </div>
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-3">
-              <button onClick={save} disabled={isPending}
-                className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors">
+              <button onClick={() => save()} disabled={isPending}
+                className="bg-[#1e3829] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#2d5240] disabled:opacity-50 transition-colors">
                 {isPending ? "Saving…" : "Save"}
               </button>
-              {saved && <span className="text-xs text-emerald-400 font-medium">Saved ✓</span>}
+              {saved && <span className="text-xs text-emerald-600 font-medium">Saved ✓</span>}
             </div>
-            <button onClick={handleDelete} disabled={isPending} className="text-xs text-red-500 hover:text-red-400 transition-colors">
-              Remove
+            <button onClick={handleDelete} disabled={isPending} className="text-xs text-stone-400 hover:text-red-500 transition-colors">
+              Remove cert
             </button>
           </div>
         </div>
@@ -160,24 +214,30 @@ export default function CertEditor({ workerId, certTypes, existing }: Props) {
     <div className="space-y-2">
       <div className="space-y-1.5">
         {certs.length === 0 && (
-          <div className="text-sm text-slate-600 italic px-1">No certifications on file yet.</div>
+          <div className="text-sm text-stone-400 italic px-1">No certifications on file yet.</div>
         )}
         {certs.map((cert) => (
-          <CertRow key={cert.id} cert={cert} certType={certTypes.find((t) => t.id === cert.certTypeId)}
-            workerId={workerId} onDelete={() => setCerts((prev) => prev.filter((c) => c.id !== cert.id))} />
+          <CertRow
+            key={cert.id}
+            cert={cert}
+            certType={certTypes.find((t) => t.id === cert.certTypeId)}
+            workerId={workerId}
+            onDelete={() => setCerts((prev) => prev.filter((c) => c.id !== cert.id))}
+            onUpdate={(updated) => setCerts((prev) => prev.map((c) => c.id === updated.id ? updated : c))}
+          />
         ))}
       </div>
 
       {availableTypes.length > 0 && (
-        <div className="flex gap-2 items-center pt-1">
+        <div className="flex gap-2 items-center pt-2">
           <select value={addingType} onChange={(e) => setAddingType(e.target.value)}
-            className="flex-1 text-sm bg-slate-800 border border-dashed border-slate-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/30 text-slate-400">
+            className="flex-1 text-sm bg-white border border-dashed border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-200 text-stone-400">
             <option value="">+ Add certification…</option>
             {availableTypes.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
           </select>
           {addingType && (
             <button onClick={addCert} disabled={isPending}
-              className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors shrink-0">
+              className="bg-[#1e3829] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#2d5240] disabled:opacity-50 transition-colors shrink-0">
               Add
             </button>
           )}
