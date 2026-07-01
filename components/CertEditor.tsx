@@ -50,10 +50,6 @@ function isUrl(s: string) {
   return s?.startsWith("http://") || s?.startsWith("https://");
 }
 
-function viewUrl(docRef: string) {
-  return `/api/view-cert?url=${encodeURIComponent(docRef)}`;
-}
-
 function isImage(docRef: string) {
   return /\.(png|jpg|jpeg|gif|webp)$/i.test(docRef);
 }
@@ -162,13 +158,13 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
               {isUrl(form.documentRef) ? (
                 <div className="space-y-2">
                   {isImage(form.documentRef) && (
-                    <a href={viewUrl(form.documentRef)} target="_blank" rel="noopener noreferrer">
-                      <img src={viewUrl(form.documentRef)} alt="Cert document"
+                    <a href={form.documentRef} target="_blank" rel="noopener noreferrer">
+                      <img src={form.documentRef} alt="Cert document"
                         className="rounded-lg border border-stone-200 max-h-40 object-contain bg-stone-50 w-full" />
                     </a>
                   )}
                   <div className="flex items-center gap-2">
-                    <a href={viewUrl(form.documentRef)} target="_blank" rel="noopener noreferrer"
+                    <a href={form.documentRef} target="_blank" rel="noopener noreferrer"
                       className="flex-1 text-sm text-[#1e3829] underline truncate">
                       {isImage(form.documentRef) ? "Open full size ↗" : "View document ↗"}
                     </a>
