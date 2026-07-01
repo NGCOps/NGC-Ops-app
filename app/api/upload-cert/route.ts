@@ -13,13 +13,13 @@ export async function POST(req: NextRequest) {
 
     const ext = file.name.split(".").pop() ?? "pdf";
     const blob = await put(`certs/${certId}.${ext}`, file, {
-      access: "private",
+      access: "public",
       contentType: file.type || "application/octet-stream",
       allowOverwrite: true,
+      token: process.env.BLOB2_READ_WRITE_TOKEN,
     });
 
-    // Return downloadUrl (has auth token built in) so client can open it directly
-    return NextResponse.json({ url: blob.downloadUrl });
+    return NextResponse.json({ url: blob.url });
   } catch (e) {
     console.error("Blob upload error:", e);
     return NextResponse.json({ error: String(e) }, { status: 500 });
