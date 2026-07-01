@@ -30,7 +30,9 @@
       "Bash(sudo chown -R 501:20 \"/Users/jennifercarter/.npm\")",
       "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app status)",
       "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app log --oneline -5)",
-      "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app show d30d2db --name-only)"
+      "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app show d30d2db --name-only)",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__read_network_requests"
     ]
   }
 }
