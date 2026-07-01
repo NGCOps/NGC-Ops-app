@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     const blob = await put(`certs/${certId}.${ext}`, file, {
       access: "private",
       contentType: file.type || "application/octet-stream",
+      allowOverwrite: true,
     });
     return NextResponse.json({ url: blob.url });
   } catch (e) {
