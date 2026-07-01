@@ -27,7 +27,10 @@
       "Bash(npm list *)",
       "mcp__Claude_in_Chrome__find",
       "mcp__Claude_in_Chrome__tabs_create_mcp",
-      "Bash(sudo chown -R 501:20 \"/Users/jennifercarter/.npm\")"
+      "Bash(sudo chown -R 501:20 \"/Users/jennifercarter/.npm\")",
+      "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app status)",
+      "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app log --oneline -5)",
+      "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app show d30d2db --name-only)"
     ]
   }
 }
