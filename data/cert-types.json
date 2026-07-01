@@ -14,5 +14,9 @@
   { "id": "ksm-badge-access", "label": "KSM Badge Access Request", "category": "compliance", "validityMonths": null, "notes": "Form submitted via BisSafety. Required before arrival on site." },
   { "id": "drivers-license", "label": "Driver's License", "category": "compliance", "validityMonths": null, "notes": "Copy uploaded to BisSafety for KSM." },
   { "id": "fall-protection", "label": "Fall Protection", "category": "safety", "validityMonths": 36, "notes": "" },
-  { "id": "tdg", "label": "TDG (Transport of Dangerous Goods)", "category": "certification", "validityMonths": 36, "notes": "" }
+  { "id": "tdg", "label": "TDG (Transport of Dangerous Goods)", "category": "certification", "validityMonths": 36, "notes": "" },
+  { "id": "tcp", "label": "Traffic Control Person (TCP)", "category": "certification", "validityMonths": 36, "notes": "BCCSA TCP program." },
+  { "id": "env-020", "label": "ENV-020 Working In and Around Water", "category": "certification", "validityMonths": null, "notes": "BC Hydro environmental training." },
+  { "id": "env-028", "label": "ENV-028 Heritage & Archaeology Awareness", "category": "certification", "validityMonths": null, "notes": "BC Hydro environmental training — field version." },
+  { "id": "env-050", "label": "ENV-050 Riparian Vegetation Work Practices", "category": "certification", "validityMonths": null, "notes": "BC Hydro ENV-050 Approved Work Practices for Managing Riparian Vegetation." }
 ]

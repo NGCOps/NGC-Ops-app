@@ -1,15 +1,5 @@
 [
   {
-    "id": "nate-bear-awareness",
-    "workerId": "nate-wilson",
-    "certTypeId": "bear-awareness",
-    "issuedDate": "2025-04-01",
-    "expiryDate": "2028-04-01",
-    "source": "email",
-    "documentRef": "eSafetyFirst Canada — Cert #221-126377",
-    "notes": "Confirmed acceptable by Jackie Schmitke (McTavish) for Enbridge Sunrise"
-  },
-  {
     "id": "nate-basic-first-aid",
     "workerId": "nate-wilson",
     "certTypeId": "basic-first-aid",
@@ -18,5 +8,95 @@
     "source": "email",
     "documentRef": "",
     "notes": "Valid to 2028 per Jennifer's email — exact issued date TBC from WorkHub/SharePoint"
+  },
+  {
+    "id": "nate-enbridge-env",
+    "workerId": "nate-wilson",
+    "certTypeId": "enbridge-env",
+    "issuedDate": "2026-01-07",
+    "expiryDate": "2026-12-31",
+    "source": "email",
+    "documentRef": "",
+    "notes": "Enbridge 2026 Contractor Safety & Environment Orientation"
+  },
+  {
+    "id": "nate-csts-2020",
+    "workerId": "nate-wilson",
+    "certTypeId": "csts-2020",
+    "issuedDate": "2022-07-07",
+    "expiryDate": null,
+    "source": "email",
+    "documentRef": "",
+    "notes": "ACSA Student ID: ACSA6561421"
+  },
+  {
+    "id": "nate-whmis",
+    "workerId": "nate-wilson",
+    "certTypeId": "whmis",
+    "issuedDate": "2025-04-08",
+    "expiryDate": "2028-04-07",
+    "source": "email",
+    "documentRef": "",
+    "notes": "WHMIS (GHS) — eSafetyFirst cert #292-126377"
+  },
+  {
+    "id": "nate-bear-awareness",
+    "workerId": "nate-wilson",
+    "certTypeId": "bear-awareness",
+    "issuedDate": "2025-04-08",
+    "expiryDate": "2028-04-07",
+    "source": "email",
+    "documentRef": "",
+    "notes": "Wildlife & Bear Awareness — eSafetyFirst cert #221-126377. Confirmed acceptable by Jackie Schmitke (McTavish) for Enbridge Sunrise"
+  },
+  {
+    "id": "nate-tcp",
+    "workerId": "nate-wilson",
+    "certTypeId": "tcp",
+    "issuedDate": "2024-06-01",
+    "expiryDate": "2027-06-01",
+    "source": "email",
+    "documentRef": "",
+    "notes": "BCCSA TCP — TCP# SN2097591, R.O.C.# 900764, Course# CQ2-18784"
+  },
+  {
+    "id": "nate-bear-spray",
+    "workerId": "nate-wilson",
+    "certTypeId": "bear-spray",
+    "issuedDate": null,
+    "expiryDate": null,
+    "source": "paper",
+    "documentRef": "",
+    "notes": "Bear Spray SOP — document on file"
+  },
+  {
+    "id": "nate-env-020",
+    "workerId": "nate-wilson",
+    "certTypeId": "env-020",
+    "issuedDate": "2022-09-29",
+    "expiryDate": null,
+    "source": "email",
+    "documentRef": "",
+    "notes": "BC Hydro ENV-020 Working In and Around Water"
+  },
+  {
+    "id": "nate-env-028",
+    "workerId": "nate-wilson",
+    "certTypeId": "env-028",
+    "issuedDate": "2022-09-29",
+    "expiryDate": null,
+    "source": "email",
+    "documentRef": "",
+    "notes": "BC Hydro ENV-028 Heritage & Archaeology Awareness - Field Version"
+  },
+  {
+    "id": "nate-env-050",
+    "workerId": "nate-wilson",
+    "certTypeId": "env-050",
+    "issuedDate": "2022-09-29",
+    "expiryDate": null,
+    "source": "email",
+    "documentRef": "",
+    "notes": "BC Hydro ENV-050 Approved Work Practices for Managing Riparian Vegetation"
   }
 ]
