@@ -70,6 +70,7 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const status = certStatus(cert);
@@ -94,17 +95,23 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setUploadError("");
     try {
       const fd = new FormData();
       fd.append("file", file);
       fd.append("certId", cert.id);
       const res = await fetch("/api/upload-cert", { method: "POST", body: fd });
-      const data = await res.json();
+      const text = await res.text();
+      const data = text ? JSON.parse(text) : {};
       if (data.url) {
         const updated = { ...form, documentRef: data.url };
         setForm(updated);
         save(updated);
+      } else {
+        setUploadError(data.error || "Upload failed");
       }
+    } catch (e) {
+      setUploadError(String(e));
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -179,6 +186,7 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
                     className="flex-1 text-center text-sm border border-dashed border-stone-300 rounded-lg px-3 py-2 text-stone-400 hover:border-stone-400 hover:text-stone-600 cursor-pointer transition-colors">
                     {uploading ? "Uploading…" : "Upload file"}
                   </label>
+                  {uploadError && <p className="text-xs text-red-500 mt-1">{uploadError}</p>}
                 </div>
               )}
             </div>

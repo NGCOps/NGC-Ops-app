@@ -11,10 +11,14 @@ export async function POST(req: NextRequest) {
   }
 
   const ext = file.name.split(".").pop() ?? "pdf";
-  const blob = await put(`certs/${certId}.${ext}`, file, {
-    access: "private",
-    contentType: file.type || "application/octet-stream",
-  });
-
-  return NextResponse.json({ url: blob.url });
+  try {
+    const blob = await put(`certs/${certId}.${ext}`, file, {
+      access: "private",
+      contentType: file.type || "application/octet-stream",
+    });
+    return NextResponse.json({ url: blob.url });
+  } catch (e) {
+    console.error("Blob upload error:", e);
+    return NextResponse.json({ error: String(e) }, { status: 500 });
+  }
 }

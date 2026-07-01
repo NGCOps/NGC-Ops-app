@@ -32,7 +32,9 @@
       "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app log --oneline -5)",
       "Bash(git -C /Users/jennifercarter/Documents/ngc-ops-app show d30d2db --name-only)",
       "mcp__claude-in-chrome__navigate",
-      "mcp__claude-in-chrome__read_network_requests"
+      "mcp__claude-in-chrome__read_network_requests",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__read_console_messages"
     ]
   }
 }
