@@ -98,5 +98,15 @@
     "source": "email",
     "documentRef": "",
     "notes": "BC Hydro ENV-050 Approved Work Practices for Managing Riparian Vegetation"
+  },
+  {
+    "id": "nate-supervising-for-safety",
+    "workerId": "nate-wilson",
+    "certTypeId": "supervising-for-safety",
+    "issuedDate": "2026-07-01",
+    "expiryDate": null,
+    "source": "workhub",
+    "documentRef": "",
+    "notes": "WorkSafeBC Supervising for Safety — no expiry"
   }
 ]
