@@ -127,7 +127,20 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
 
       {/* Certifications */}
       <section>
-        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Certifications</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Certifications</h2>
+          <div className="flex gap-2">
+            {expiredCerts.length > 0 && (
+              <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">{expiredCerts.length} expired</span>
+            )}
+            {expiringCerts.length > 0 && (
+              <span className="text-xs font-medium bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full">{expiringCerts.length} expiring</span>
+            )}
+            {masterCerts.length > 0 && !expiredCerts.length && !expiringCerts.length && (
+              <span className="text-xs font-medium bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-full">{masterCerts.length} valid</span>
+            )}
+          </div>
+        </div>
         <div className="bg-white rounded-xl border border-stone-200 p-4">
           <CertEditor workerId={id} certTypes={certTypes} existing={masterCerts} />
         </div>
