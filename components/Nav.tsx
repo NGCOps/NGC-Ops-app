@@ -7,7 +7,6 @@ const links = [
   { href: "/", label: "Dashboard" },
   { href: "/projects", label: "Projects" },
   { href: "/people", label: "People" },
-  { href: "/certifications", label: "Certs" },
   { href: "/shift-prep", label: "Onboarding" },
   { href: "/logistics", label: "Movement" },
 ];

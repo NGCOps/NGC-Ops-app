@@ -1,8 +1,9 @@
 import {
-  getPerson, getPeople, getProjectsForPerson, getProject,
-  getCertificationsForWorker, getCertTypes, isCertExpired, isCertExpiringSoon,
+  getPerson, getPeople, getProjectsForPerson,
+  isCertExpired, isCertExpiringSoon,
   getShiftPrepForProject, getDeploymentsForWorker, deploymentHasTBD,
 } from "@/lib/data";
+import { dbGetCertificationsForWorker, dbGetCertTypes } from "@/lib/db-data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { PersonGroup } from "@/lib/data";
@@ -10,18 +11,20 @@ import OnboardingChecklist from "@/components/OnboardingChecklist";
 import CertEditor from "@/components/CertEditor";
 import MovementPlan from "@/components/MovementPlan";
 
+export const dynamic = "force-dynamic";
+
 const groupColors: Record<PersonGroup, string> = {
-  "ngc-management": "bg-[#1a3a5c]",
+  "ngc-management":  "bg-blue-700",
   "katc-supervisor": "bg-violet-700",
-  "bc-parks": "bg-emerald-700",
-  "env-tech": "bg-amber-600",
+  "bc-parks":        "bg-emerald-700",
+  "env-tech":        "bg-amber-600",
 };
 
 const groupLabels: Record<PersonGroup, string> = {
-  "ngc-management": "NGC Management",
+  "ngc-management":  "NGC Management",
   "katc-supervisor": "KATC Supervisor",
-  "bc-parks": "BC Parks Staff",
-  "env-tech": "Environmental Tech",
+  "bc-parks":        "BC Parks Staff",
+  "env-tech":        "Environmental Tech",
 };
 
 function initials(name: string) {
@@ -34,7 +37,6 @@ function formatDate(d: string) {
 }
 
 export function generateStaticParams() {
-  const { getPeople } = require("@/lib/data");
   return getPeople().map((p: { id: string }) => ({ id: p.id }));
 }
 
@@ -43,8 +45,11 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
   const person = getPerson(id);
   if (!person) notFound();
 
-  const certTypes = getCertTypes();
-  const masterCerts = getCertificationsForWorker(id);
+  const [certTypes, masterCerts] = await Promise.all([
+    dbGetCertTypes(),
+    dbGetCertificationsForWorker(id),
+  ]);
+
   const allPersonProjects = getProjectsForPerson(id);
   const deployments = getDeploymentsForWorker(id);
 
@@ -64,34 +69,32 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
   const expiringCerts = masterCerts.filter((c) => !isCertExpired(c) && isCertExpiringSoon(c));
   const alertCount = expiredCerts.length + expiringCerts.length;
 
-  const avatarColor = groupColors[person.group] ?? "bg-[#1a3a5c]";
-
   return (
     <div className="space-y-6">
-      <Link href="/people" className="text-sm text-slate-500 hover:text-slate-100 transition-colors">
+      <Link href="/people" className="text-sm text-stone-500 hover:text-stone-700 transition-colors">
         ← People
       </Link>
 
       {/* Header */}
-      <div className="bg-slate-900 rounded-xl border border-slate-700/50 p-6">
+      <div className="bg-white rounded-xl border border-stone-200 p-6">
         <div className="flex items-start gap-4">
-          <div className={`${avatarColor} w-14 h-14 rounded-full flex items-center justify-center shrink-0`}>
+          <div className={`${groupColors[person.group]} w-14 h-14 rounded-full flex items-center justify-center shrink-0`}>
             <span className="text-white text-xl font-bold">{initials(person.name)}</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2 flex-wrap">
               <div>
-                <h1 className="text-xl font-bold text-slate-100">{person.name}</h1>
-                <div className="text-slate-500 mt-0.5">{person.role}</div>
+                <h1 className="text-xl font-bold text-stone-900">{person.name}</h1>
+                <div className="text-stone-500 mt-0.5">{person.role}</div>
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                  <span className="text-xs text-slate-500">{person.company}</span>
-                  <span className="text-xs font-medium bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">
+                  <span className="text-xs text-stone-400">{person.company}</span>
+                  <span className="text-xs font-medium bg-stone-100 text-stone-500 px-2 py-0.5 rounded-full">
                     {groupLabels[person.group]}
                   </span>
                 </div>
               </div>
               {alertCount > 0 && (
-                <span className="text-xs font-semibold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">
+                <span className="text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full">
                   ⚠ {alertCount} cert{alertCount !== 1 ? "s" : ""} need attention
                 </span>
               )}
@@ -100,35 +103,32 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
         </div>
 
         {/* Contact */}
-        <div className="mt-5 pt-5 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="mt-5 pt-5 border-t border-stone-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Email</div>
+            <div className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-1">Email</div>
             {person.email ? (
-              <a href={`mailto:${person.email}`} className="text-sm text-slate-100 hover:underline">{person.email}</a>
-            ) : <span className="text-sm text-slate-600 italic">Not on file</span>}
+              <a href={`mailto:${person.email}`} className="text-sm text-stone-800 hover:underline">{person.email}</a>
+            ) : <span className="text-sm text-stone-400 italic">Not on file</span>}
           </div>
           <div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Phone</div>
+            <div className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-1">Phone</div>
             {person.phone ? (
-              <a href={`tel:${person.phone}`} className="text-sm text-slate-300 hover:underline">{person.phone}</a>
-            ) : <span className="text-sm text-slate-600 italic">Not on file</span>}
+              <a href={`tel:${person.phone}`} className="text-sm text-stone-700 hover:underline">{person.phone}</a>
+            ) : <span className="text-sm text-stone-400 italic">Not on file</span>}
           </div>
           <div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Hourly Rate</div>
+            <div className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-1">Hourly Rate</div>
             {person.hourlyRate ? (
-              <span className="text-sm font-medium text-slate-200">${person.hourlyRate}/hr</span>
-            ) : <span className="text-sm text-slate-600 italic">Not on file</span>}
+              <span className="text-sm font-medium text-stone-800">${person.hourlyRate}/hr</span>
+            ) : <span className="text-sm text-stone-400 italic">Not on file</span>}
           </div>
         </div>
       </div>
 
       {/* Certifications */}
       <section>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Certifications</h2>
-          <Link href="/certifications" className="text-xs text-slate-100 hover:underline">View all →</Link>
-        </div>
-        <div className="bg-slate-900 rounded-xl border border-slate-700/50 p-4">
+        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Certifications</h2>
+        <div className="bg-white rounded-xl border border-stone-200 p-4">
           <CertEditor workerId={id} certTypes={certTypes} existing={masterCerts} />
         </div>
       </section>
@@ -136,7 +136,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
       {/* Upcoming Projects + Onboarding */}
       {upcomingProjects.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Upcoming Projects</h2>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Upcoming Projects</h2>
           <div className="space-y-4">
             {upcomingProjects.map((p) => {
               const shiftPrep = getShiftPrepForProject(p.id);
@@ -146,23 +146,22 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
               const hasTBDMovement = deployment ? deploymentHasTBD(deployment) : true;
 
               return (
-                <div key={p.id} className="bg-slate-900 rounded-xl border border-slate-700/50 p-4 space-y-4">
+                <div key={p.id} className="bg-white rounded-xl border border-stone-200 p-4 space-y-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="font-semibold text-slate-100">{p.name}</div>
-                      <div className="text-xs text-slate-500 mt-0.5">{p.client} · {p.location}</div>
-                      <div className="text-xs text-slate-500 mt-0.5">
+                      <div className="font-semibold text-stone-900">{p.name}</div>
+                      <div className="text-xs text-stone-400 mt-0.5">{p.client} · {p.location}</div>
+                      <div className="text-xs text-stone-400 mt-0.5">
                         {formatDate(p.startDate)} → {formatDate(p.endDate)}
                       </div>
                     </div>
                     {hasTBDMovement && (
-                      <span className="text-xs font-medium bg-red-100 text-red-700 px-2 py-0.5 rounded-full shrink-0">Movement TBD</span>
+                      <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full shrink-0">Movement TBD</span>
                     )}
                   </div>
 
-                  {/* Onboarding checklist */}
                   {shiftPrep && shiftPrep.requirements.length > 0 && (
-                    <div className="border-t border-slate-800 pt-4">
+                    <div className="border-t border-stone-100 pt-4">
                       <OnboardingChecklist
                         projectId={p.id}
                         projectName={p.name}
@@ -174,9 +173,8 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
                     </div>
                   )}
 
-                  {/* Movement plan */}
                   {deployment && (
-                    <div className="border-t border-slate-800 pt-4">
+                    <div className="border-t border-stone-100 pt-4">
                       <MovementPlan deployment={deployment} workerName={person.name} />
                     </div>
                   )}
@@ -190,15 +188,15 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
       {/* Past Projects */}
       {pastProjects.length > 0 && (
         <section>
-          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Past Projects</h2>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Past Projects</h2>
           <div className="space-y-2">
             {pastProjects.map((p) => (
-              <div key={p.id} className="bg-slate-900 rounded-lg border border-slate-800 p-4 flex items-center justify-between gap-4 opacity-60">
+              <div key={p.id} className="bg-white rounded-lg border border-stone-200 p-4 flex items-center justify-between gap-4 opacity-60">
                 <div>
-                  <div className="font-medium text-slate-300 text-sm">{p.name}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">{p.client} · {p.location}</div>
+                  <div className="font-medium text-stone-800 text-sm">{p.name}</div>
+                  <div className="text-xs text-stone-400 mt-0.5">{p.client} · {p.location}</div>
                 </div>
-                <div className="text-xs text-slate-500 text-right shrink-0">
+                <div className="text-xs text-stone-400 text-right shrink-0">
                   <div>{formatDate(p.startDate)}</div>
                   <div>→ {formatDate(p.endDate)}</div>
                 </div>
@@ -209,7 +207,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
       )}
 
       {upcomingProjects.length === 0 && pastProjects.length === 0 && (
-        <div className="bg-slate-900 rounded-xl border border-dashed border-slate-700/50 p-8 text-center text-sm text-slate-500">
+        <div className="bg-white rounded-xl border border-dashed border-stone-200 p-8 text-center text-sm text-stone-400">
           No projects on file for {person.name}.
         </div>
       )}

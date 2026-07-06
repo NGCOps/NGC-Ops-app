@@ -21,7 +21,7 @@ interface Props {
 }
 
 function certStatus(cert: Certification): "valid" | "expiring" | "expired" | "no-expiry" {
-  if (!cert.expiryDate) return "no-expiry";
+  if (!cert.expiryDate) return "valid";
   const exp = new Date(cert.expiryDate + "T12:00:00");
   const now = new Date();
   if (exp < now) return "expired";
@@ -131,7 +131,7 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
           <span className="text-xs text-stone-400 shrink-0">📎 doc</span>
         )}
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${statusStyle[status]}`}>
-          {status === "no-expiry" ? "No expiry" : status === "expiring" ? "Expiring soon" : status === "expired" ? "Expired" : "Valid"}
+          {status === "expiring" ? "Expiring soon" : status === "expired" ? "Expired" : "Valid"}
         </span>
         <span className="text-stone-300 text-sm shrink-0">{expanded ? "▲" : "▼"}</span>
       </button>
