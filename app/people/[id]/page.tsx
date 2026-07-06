@@ -1,15 +1,13 @@
 import {
   getPerson, getPeople, getProjectsForPerson,
+  getShiftPrepForProject, getDeploymentsForWorker,
   isCertExpired, isCertExpiringSoon,
-  getShiftPrepForProject, getDeploymentsForWorker, deploymentHasTBD,
 } from "@/lib/data";
 import { dbGetCertificationsForWorker, dbGetCertTypes } from "@/lib/db-data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { PersonGroup } from "@/lib/data";
-import OnboardingChecklist from "@/components/OnboardingChecklist";
-import CertEditor from "@/components/CertEditor";
-import MovementPlan from "@/components/MovementPlan";
+import ProfileCards from "@/components/ProfileCards";
 
 export const dynamic = "force-dynamic";
 
@@ -31,11 +29,6 @@ function initials(name: string) {
   return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 }
 
-function formatDate(d: string) {
-  if (!d) return "";
-  return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
-}
-
 export function generateStaticParams() {
   return getPeople().map((p: { id: string }) => ({ id: p.id }));
 }
@@ -55,14 +48,12 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const in30 = new Date(today);
+  in30.setDate(in30.getDate() + 30);
 
   const upcomingProjects = allPersonProjects.filter((p) => {
     const end = new Date(p.endDate + "T12:00:00");
     return end >= today && p.status !== "complete";
-  });
-  const pastProjects = allPersonProjects.filter((p) => {
-    const end = new Date(p.endDate + "T12:00:00");
-    return end < today || p.status === "complete";
   });
 
   const expiredCerts = masterCerts.filter(isCertExpired);
@@ -102,7 +93,6 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
-        {/* Contact */}
         <div className="mt-5 pt-5 border-t border-stone-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <div className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-1">Email</div>
@@ -125,105 +115,15 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
         </div>
       </div>
 
-      {/* Certifications */}
-      <section>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Certifications</h2>
-          <div className="flex gap-2">
-            {expiredCerts.length > 0 && (
-              <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">{expiredCerts.length} expired</span>
-            )}
-            {expiringCerts.length > 0 && (
-              <span className="text-xs font-medium bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full">{expiringCerts.length} expiring</span>
-            )}
-            {masterCerts.length > 0 && !expiredCerts.length && !expiringCerts.length && (
-              <span className="text-xs font-medium bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-full">{masterCerts.length} valid</span>
-            )}
-          </div>
-        </div>
-        <div className="bg-white rounded-xl border border-stone-200 p-4">
-          <CertEditor workerId={id} certTypes={certTypes} existing={masterCerts} />
-        </div>
-      </section>
-
-      {/* Upcoming Projects + Onboarding */}
-      {upcomingProjects.length > 0 && (
-        <section>
-          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Upcoming Projects</h2>
-          <div className="space-y-4">
-            {upcomingProjects.map((p) => {
-              const shiftPrep = getShiftPrepForProject(p.id);
-              const workerStatus = shiftPrep?.workerStatus[id] ?? {};
-              const deployment = deployments.find((d) => d.projectId === p.id);
-              const shiftStart = deployment?.shiftStart ?? p.startDate;
-              const hasTBDMovement = deployment ? deploymentHasTBD(deployment) : true;
-
-              return (
-                <div key={p.id} className="bg-white rounded-xl border border-stone-200 p-4 space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="font-semibold text-stone-900">{p.name}</div>
-                      <div className="text-xs text-stone-400 mt-0.5">{p.client} · {p.location}</div>
-                      <div className="text-xs text-stone-400 mt-0.5">
-                        {formatDate(p.startDate)} → {formatDate(p.endDate)}
-                      </div>
-                    </div>
-                    {hasTBDMovement && (
-                      <span className="text-xs font-medium bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full shrink-0">Movement TBD</span>
-                    )}
-                  </div>
-
-                  {shiftPrep && shiftPrep.requirements.length > 0 && (
-                    <div className="border-t border-stone-100 pt-4">
-                      <OnboardingChecklist
-                        projectId={p.id}
-                        projectName={p.name}
-                        shiftStart={shiftStart}
-                        workerId={id}
-                        requirements={shiftPrep.requirements}
-                        workerStatus={workerStatus}
-                      />
-                    </div>
-                  )}
-
-                  {deployment && (
-                    <div className="border-t border-stone-100 pt-4">
-                      <MovementPlan deployment={deployment} workerName={person.name} />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Past Projects */}
-      {pastProjects.length > 0 && (
-        <section>
-          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Past Projects</h2>
-          <div className="space-y-2">
-            {pastProjects.map((p) => (
-              <div key={p.id} className="bg-white rounded-lg border border-stone-200 p-4 flex items-center justify-between gap-4 opacity-60">
-                <div>
-                  <div className="font-medium text-stone-800 text-sm">{p.name}</div>
-                  <div className="text-xs text-stone-400 mt-0.5">{p.client} · {p.location}</div>
-                </div>
-                <div className="text-xs text-stone-400 text-right shrink-0">
-                  <div>{formatDate(p.startDate)}</div>
-                  <div>→ {formatDate(p.endDate)}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {upcomingProjects.length === 0 && pastProjects.length === 0 && (
-        <div className="bg-white rounded-xl border border-dashed border-stone-200 p-8 text-center text-sm text-stone-400">
-          No projects on file for {person.name}.
-        </div>
-      )}
+      {/* Interactive cards — schedule, certs, projects, movement */}
+      <ProfileCards
+        workerId={id}
+        certTypes={certTypes}
+        certs={masterCerts}
+        upcomingProjects={upcomingProjects}
+        allProjects={allPersonProjects}
+        deployments={deployments}
+      />
     </div>
   );
 }
