@@ -3,8 +3,15 @@
 import { useState } from "react";
 import CertEditor from "@/components/CertEditor";
 import { clientColor } from "@/lib/colors";
+import { deploymentHasTBD } from "@/lib/data";
 import type { Project, Deployment, CertType } from "@/lib/data";
 import type { Certification } from "@/lib/data";
+
+const legStatusColor: Record<string, string> = {
+  confirmed: "bg-emerald-500",
+  complete: "bg-stone-300",
+  tbd: "bg-red-400",
+};
 
 interface Props {
   workerId: string;
@@ -30,70 +37,129 @@ function parseYMD(s: string) {
 }
 
 // ── 30-day schedule ──────────────────────────────────────────────────────────
+// Copy of the Timeline view from the Movement page (app/logistics/page.tsx),
+// scoped to a single worker and bounded to a fixed next-30-days window instead
+// of the full deployment range, restyled to match this page's light theme.
 
 function Schedule({ projects, deployments }: { projects: Project[]; deployments: Deployment[] }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const days = Array.from({ length: 30 }, (_, i) => addDays(today, i));
+  const rangeStart = today;
+  const rangeEnd = addDays(today, 30);
+  const totalMs = rangeEnd.getTime() - rangeStart.getTime();
 
-  function projectForDay(day: Date): Project | null {
-    const ymd = toYMD(day);
-    for (const d of deployments) {
-      if (d.shiftStart <= ymd && ymd <= d.shiftEnd) {
-        return projects.find((p) => p.id === d.projectId) ?? null;
-      }
-    }
-    for (const p of projects) {
-      if (p.startDate <= ymd && ymd <= p.endDate) return p;
-    }
-    return null;
+  function pct(d: string | Date): number {
+    const ms = (typeof d === "string" ? parseYMD(d) : d).getTime();
+    return Math.max(0, Math.min(100, ((ms - rangeStart.getTime()) / totalMs) * 100));
   }
 
-  const weeks: Date[][] = [];
-  for (let i = 0; i < 30; i += 7) weeks.push(days.slice(i, i + 7));
+  const dayLabels: { label: string; pct: number }[] = [];
+  const cursor = new Date(rangeStart);
+  while (cursor <= rangeEnd) {
+    dayLabels.push({
+      label: cursor.toLocaleDateString("en-CA", { month: "short", day: "numeric" }),
+      pct: pct(cursor),
+    });
+    cursor.setDate(cursor.getDate() + 3);
+  }
+
+  const rangeStartYMD = toYMD(rangeStart);
+  const rangeEndYMD = toYMD(rangeEnd);
+  const inRange = deployments.filter((d) => d.shiftEnd >= rangeStartYMD && d.shiftStart <= rangeEndYMD);
+
+  if (inRange.length === 0) {
+    return <p className="text-sm text-stone-400 italic">No projects scheduled in the next 30 days.</p>;
+  }
+
+  const todayPct = pct(today);
 
   return (
-    <div className="space-y-1.5">
-      {weeks.map((week, wi) => (
-        <div key={wi} className="flex gap-1">
-          {week.map((day) => {
-            const p = projectForDay(day);
-            const isToday = toYMD(day) === toYMD(today);
-            const color = p ? clientColor(p.client) : null;
-            return (
-              <div
-                key={toYMD(day)}
-                title={p ? `${p.name} · ${day.toLocaleDateString("en-CA", { month: "short", day: "numeric" })}` : day.toLocaleDateString("en-CA", { month: "short", day: "numeric" })}
-                className={`flex-1 rounded text-center py-1 text-[10px] font-medium transition-all ${isToday ? "ring-2 ring-[#1e3829]" : ""}`}
-                style={{
-                  backgroundColor: color ? color.bg : "#f5f0ea",
-                  color: color ? color.border : "#c7b99a",
-                  border: `1px solid ${color ? color.border + "40" : "#e8ddd0"}`,
-                }}
-              >
-                {day.getDate()}
-              </div>
-            );
-          })}
-          {week.length < 7 && Array.from({ length: 7 - week.length }).map((_, i) => (
-            <div key={`pad-${i}`} className="flex-1" />
+    <div className="overflow-x-auto">
+      <div className="min-w-[500px]">
+        {/* Day axis */}
+        <div className="relative h-6 mb-2 ml-28 border-b border-stone-200">
+          {dayLabels.map((dl, i) => (
+            <span
+              key={i}
+              className="absolute text-[10px] text-stone-400 -translate-x-1/2"
+              style={{ left: `${dl.pct}%` }}
+            >
+              {dl.label}
+            </span>
           ))}
         </div>
-      ))}
-      {/* Legend */}
-      {projects.length > 0 && (
-        <div className="flex gap-3 flex-wrap pt-1">
-          {projects.map((p) => {
-            const color = clientColor(p.client);
+
+        {/* Deployment rows */}
+        <div className="space-y-2">
+          {inRange.map((dep) => {
+            const project = projects.find((p) => p.id === dep.projectId);
+            const color = project ? clientColor(project.client) : null;
+            const hasTBD = deploymentHasTBD(dep);
+            const depStart = pct(dep.shiftStart);
+            const depEnd = pct(dep.shiftEnd);
+            const depWidth = Math.max(depEnd - depStart, 1);
+
             return (
-              <div key={p.id} className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: color.bg, border: `1px solid ${color.border}` }} />
-                <span className="text-xs text-stone-500">{p.name}</span>
+              <div key={dep.id} className="flex items-center gap-2">
+                <div className="w-28 shrink-0 pr-2">
+                  <span className="text-xs font-medium text-stone-600 truncate block">{project?.name ?? dep.projectId}</span>
+                </div>
+
+                <div className="relative flex-1 h-8">
+                  <div className="absolute inset-y-0 left-0 right-0 bg-stone-50 rounded" />
+
+                  {todayPct >= 0 && todayPct <= 100 && (
+                    <div className="absolute inset-y-0 w-px bg-blue-400 z-10" style={{ left: `${todayPct}%` }} />
+                  )}
+
+                  <div
+                    className="absolute inset-y-1 rounded flex items-center overflow-hidden border"
+                    style={{
+                      left: `${depStart}%`,
+                      width: `${depWidth}%`,
+                      backgroundColor: hasTBD ? "#fef2f2" : color?.bg,
+                      borderColor: hasTBD ? "#fca5a5" : color?.border,
+                    }}
+                  >
+                    {dep.legs.length > 0 && (
+                      <div className="absolute inset-0 flex">
+                        {dep.legs.map((leg, i) => (
+                          <div
+                            key={leg.id}
+                            className={`flex-1 h-full opacity-70 ${legStatusColor[leg.status] ?? "bg-stone-300"} ${i < dep.legs.length - 1 ? "mr-px" : ""}`}
+                            title={`${leg.from || "?"} → ${leg.to || "?"} (${leg.status})`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {dep.legs.length === 0 && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-[9px] font-semibold text-red-500">NO LEGS</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
-      )}
+
+        {/* Legend */}
+        <div className="flex items-center gap-4 mt-4 ml-28 flex-wrap">
+          <div className="flex items-center gap-1.5 text-[10px] text-stone-400">
+            <div className="w-3 h-2 rounded-sm bg-emerald-500" /> Confirmed
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-stone-400">
+            <div className="w-3 h-2 rounded-sm bg-red-400" /> TBD
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-stone-400">
+            <div className="w-3 h-2 rounded-sm bg-stone-300" /> Complete
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-stone-400">
+            <div className="w-px h-3 bg-blue-400" /> Today
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -307,11 +373,7 @@ export default function ProfileCards({ workerId, certTypes, certs, upcomingProje
       <section>
         <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Next 30 Days</h2>
         <div className="bg-white rounded-xl border border-stone-200 p-4">
-          {upcomingProjects.length === 0 ? (
-            <p className="text-sm text-stone-400 italic">No projects scheduled in the next 30 days.</p>
-          ) : (
-            <Schedule projects={upcomingProjects} deployments={deployments} />
-          )}
+          <Schedule projects={allProjects} deployments={deployments} />
         </div>
       </section>
 

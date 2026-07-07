@@ -34,7 +34,15 @@
       "mcp__claude-in-chrome__navigate",
       "mcp__claude-in-chrome__read_network_requests",
       "mcp__claude-in-chrome__tabs_context_mcp",
-      "mcp__claude-in-chrome__read_console_messages"
+      "mcp__claude-in-chrome__read_console_messages",
+      "Bash(curl -s localhost:3000 -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(ps -p 53018 -o pid,lstart,command)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s \"http://localhost:3000/people/amber-mckay\" -o /tmp/amber.html -w \"%{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(env)",
+      "Bash(npx eslint *)",
+      "Bash(npx tsx *)"
     ]
   }
 }
