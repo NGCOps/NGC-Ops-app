@@ -48,7 +48,8 @@
       "mcp__claude-in-chrome__get_page_text",
       "mcp__claude-in-chrome__javascript_tool",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/projects.json'\\)\\)\")",
-      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/logistics.json'\\)\\)\")"
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/logistics.json'\\)\\)\")",
+      "Bash(git stash *)"
     ]
   }
 }

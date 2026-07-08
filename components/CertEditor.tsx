@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef } from "react";
 import { upsertCertification, deleteCertification } from "@/app/actions/updateCertRecord";
-import type { Certification, CertType, CertSource } from "@/lib/data";
+import type { Certification, CertType, CertSource, Project } from "@/lib/data";
 
 const sourceOptions: { value: CertSource; label: string }[] = [
   { value: "sharepoint", label: "SharePoint" },
@@ -18,6 +18,7 @@ interface Props {
   workerId: string;
   certTypes: CertType[];
   existing: Certification[];
+  allProjects?: Project[];
 }
 
 function certStatus(cert: Certification): "valid" | "expiring" | "expired" | "no-expiry" {
@@ -54,14 +55,15 @@ function isImage(docRef: string) {
   return /\.(png|jpg|jpeg|gif|webp)$/i.test(docRef);
 }
 
-function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
+function CertRow({ cert, certType, workerId, onDelete, onUpdate, expanded, onToggle }: {
   cert: Certification;
   certType: CertType | undefined;
   workerId: string;
   onDelete: () => void;
   onUpdate: (updated: Certification) => void;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
   const [form, setForm] = useState({ ...cert });
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
@@ -116,7 +118,7 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
 
   return (
     <div className="rounded-lg border border-stone-200 bg-white">
-      <button onClick={() => setExpanded((e) => !e)} className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-stone-50 transition-colors rounded-lg">
+      <button onClick={onToggle} className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-stone-50 transition-colors rounded-lg">
         <div className={`w-2 h-2 rounded-full shrink-0 ${statusDot[status]}`} />
         <div className="flex-1 min-w-0">
           <span className="text-sm font-medium text-stone-800">{certType?.label ?? cert.certTypeId}</span>
@@ -209,60 +211,119 @@ function CertRow({ cert, certType, workerId, onDelete, onUpdate }: {
   );
 }
 
-export default function CertEditor({ workerId, certTypes, existing }: Props) {
+export default function CertEditor({ workerId, certTypes, existing, allProjects }: Props) {
   const [certs, setCerts] = useState<Certification[]>(existing);
   const [addingType, setAddingType] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
   const usedTypeIds = new Set(certs.map((c) => c.certTypeId));
   const availableTypes = certTypes.filter((t) => !usedTypeIds.has(t.id));
 
-  function addCert() {
-    if (!addingType) return;
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  const validCertIds = new Set(
+    certs.filter((c) => !c.expiryDate || new Date(c.expiryDate + "T12:00:00") >= now).map((c) => c.certTypeId)
+  );
+  const certProjects = (allProjects ?? []).filter((p) => p.requiredCerts?.length);
+  const neededCertIds = [...new Set(
+    certProjects.flatMap((p) => (p.requiredCerts ?? []).filter((cid) => !validCertIds.has(cid)))
+  )];
+
+  function toggleExpanded(id: string) {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }
+
+  // Needed certs that are already on file (just expired) get their existing row
+  // expanded for editing instead of creating a second entry for the same cert type.
+  function addCertForType(certTypeId: string) {
+    const already = certs.find((c) => c.certTypeId === certTypeId);
+    if (already) {
+      setExpandedIds((prev) => new Set(prev).add(already.id));
+      return;
+    }
     const newCert: Certification = {
-      id: `${workerId}-${addingType}-${Date.now()}`,
-      workerId, certTypeId: addingType,
+      id: `${workerId}-${certTypeId}`,
+      workerId, certTypeId,
       issuedDate: null, expiryDate: null,
       source: "sharepoint", documentRef: "", notes: "",
     };
     setCerts((prev) => [...prev, newCert]);
-    setAddingType("");
+    setExpandedIds((prev) => new Set(prev).add(newCert.id));
     startTransition(async () => { await upsertCertification(newCert); });
   }
 
-  return (
-    <div className="space-y-2">
-      <div className="space-y-1.5">
-        {certs.length === 0 && (
-          <div className="text-sm text-stone-400 italic px-1">No certifications on file yet.</div>
-        )}
-        {certs.map((cert) => (
-          <CertRow
-            key={cert.id}
-            cert={cert}
-            certType={certTypes.find((t) => t.id === cert.certTypeId)}
-            workerId={workerId}
-            onDelete={() => setCerts((prev) => prev.filter((c) => c.id !== cert.id))}
-            onUpdate={(updated) => setCerts((prev) => prev.map((c) => c.id === updated.id ? updated : c))}
-          />
-        ))}
-      </div>
+  function addCert() {
+    if (!addingType) return;
+    addCertForType(addingType);
+    setAddingType("");
+  }
 
-      {availableTypes.length > 0 && (
-        <div className="flex gap-2 items-center pt-2">
-          <select value={addingType} onChange={(e) => setAddingType(e.target.value)}
-            className="flex-1 text-sm bg-white border border-dashed border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-200 text-stone-400">
-            <option value="">+ Add certification…</option>
-            {availableTypes.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
-          </select>
-          {addingType && (
-            <button onClick={addCert} disabled={isPending}
-              className="bg-[#1e3829] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#2d5240] disabled:opacity-50 transition-colors shrink-0">
-              Add
-            </button>
-          )}
+  return (
+    <div className="space-y-4">
+      {neededCertIds.length > 0 && (
+        <div>
+          <div className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-2">Needed — click to add</div>
+          <div className="space-y-1.5">
+            {neededCertIds.map((cid) => {
+              const label = certTypes.find((t) => t.id === cid)?.label ?? cid;
+              const forProjects = certProjects.filter((p) => (p.requiredCerts ?? []).includes(cid));
+              return (
+                <button
+                  key={cid}
+                  onClick={() => addCertForType(cid)}
+                  disabled={isPending}
+                  className="w-full flex items-center justify-between gap-3 text-sm bg-blue-50/60 border border-blue-100 hover:bg-blue-100 rounded-lg px-3 py-2 text-left transition-colors disabled:opacity-50"
+                >
+                  <span className="text-stone-700 font-medium">+ {label}</span>
+                  <span className="text-xs text-stone-500 text-right shrink-0">
+                    {forProjects.map((p) => p.name).join(", ")}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
+
+      <div className="space-y-2">
+        <div className="space-y-1.5">
+          {certs.length === 0 && (
+            <div className="text-sm text-stone-400 italic px-1">No certifications on file yet.</div>
+          )}
+          {certs.map((cert) => (
+            <CertRow
+              key={cert.id}
+              cert={cert}
+              certType={certTypes.find((t) => t.id === cert.certTypeId)}
+              workerId={workerId}
+              expanded={expandedIds.has(cert.id)}
+              onToggle={() => toggleExpanded(cert.id)}
+              onDelete={() => setCerts((prev) => prev.filter((c) => c.id !== cert.id))}
+              onUpdate={(updated) => setCerts((prev) => prev.map((c) => c.id === updated.id ? updated : c))}
+            />
+          ))}
+        </div>
+
+        {availableTypes.length > 0 && (
+          <div className="flex gap-2 items-center pt-2">
+            <select value={addingType} onChange={(e) => setAddingType(e.target.value)}
+              className="flex-1 text-sm bg-white border border-dashed border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-200 text-stone-400">
+              <option value="">+ Add certification…</option>
+              {availableTypes.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
+            </select>
+            {addingType && (
+              <button onClick={addCert} disabled={isPending}
+                className="bg-[#1e3829] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[#2d5240] disabled:opacity-50 transition-colors shrink-0">
+                Add
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
