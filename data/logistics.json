@@ -1,166 +1,781 @@
 [
   {
-    "id": "amber-brucejack-jun23",
-    "projectId": "brucejack-em",
-    "workerId": "amber-mckay",
-    "shiftStart": "2026-06-23",
-    "shiftEnd": "2026-06-29",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Standby day Jun 23, then Arch/Veg shift (David Le Beau) Jun 24–29."
-  },
-  {
-    "id": "nate-brucejack-jun19",
-    "projectId": "brucejack-em",
-    "workerId": "nate-wilson",
-    "shiftStart": "2026-06-19",
-    "shiftEnd": "2026-06-24",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Caleb - Vegetation component."
-  },
-  {
-    "id": "cole-ksm-jun22",
-    "projectId": "ksm-seabridge",
-    "workerId": "cole-angus",
-    "shiftStart": "2026-06-22",
-    "shiftEnd": "2026-07-03",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Pre-clearing at KSM."
-  },
-  {
-    "id": "chris-scottie-jun18",
+    "id": "5a4d90a1-2d9e-47de-83ff-ed3f602e38d6",
     "projectId": "scottie-resources",
     "workerId": "chris-stanley",
-    "shiftStart": "2026-06-18",
-    "shiftEnd": "2026-07-02",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [
-      {
-        "id": "chris-scottie-leg-1",
-        "order": 1,
-        "type": "self",
-        "from": "Gingolx",
-        "to": "Terrace",
-        "date": "",
-        "time": "",
-        "arrangedBy": "self",
-        "driverName": "",
-        "notes": "Chris arranging own transport",
-        "status": "confirmed"
-      }
-    ],
-    "notes": "SWQ - Hydrology - Air Quality (Jun 18–26), then general Scottie shift Jun 27–Jul 2. Field contact Megan Charlton."
-  },
-  {
-    "id": "amber-ksm-jul3",
-    "projectId": "ksm-seabridge",
-    "workerId": "amber-mckay",
-    "shiftStart": "2026-07-03",
-    "shiftEnd": "2026-07-17",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftStart": "2026-03-30",
+    "shiftEnd": "2026-04-03",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "Preclear rotation."
+    "notes": ""
   },
   {
-    "id": "nate-scottie-jul2",
+    "id": "472d4f63-ca4c-41cf-b99b-84a82e067b04",
     "projectId": "scottie-resources",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-04-06",
+    "shiftEnd": "2026-04-08",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "3ac22415-537c-41b7-adf7-f155dc982c19",
+    "projectId": "unbc-em-training",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-04-13",
+    "shiftEnd": "2026-04-24",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "39339fdd-26a4-43d0-9985-0c347b900247",
+    "projectId": "unbc-em-training",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-04-13",
+    "shiftEnd": "2026-04-24",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "75540077-8ec6-407b-8406-1bf44e0e2fc0",
+    "projectId": "ksi-lisims-environmental-monitoring",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-04-16",
+    "shiftEnd": "2026-04-22",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "60bb0da1-0ed6-4b40-9748-752d12fc35d5",
+    "projectId": "ksm-seabridge",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-05-12",
+    "shiftEnd": "2026-05-26",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "58bed13a-7f22-4de2-ad0e-cadfe72f3c02",
+    "projectId": "katc-forestry-general",
+    "workerId": "sean-harris",
+    "shiftStart": "2026-05-12",
+    "shiftEnd": "2026-05-15",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "9b095b34-408d-406f-96cc-59910605806c",
+    "projectId": "vacation",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-05-22",
+    "shiftEnd": "2026-05-24",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "3fc92bf8-9ce4-460c-86c6-2134e690fc35",
+    "projectId": "anyox-environmental-monitoring",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-05-28",
+    "shiftEnd": "2026-05-29",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "f470dc1a-e736-4975-befb-a62fe49cbaee",
+    "projectId": "anyox-environmental-monitoring",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-05-28",
+    "shiftEnd": "2026-05-29",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "c5d580a4-376f-485d-bc05-99753f8ea347",
+    "projectId": "ksm-seabridge",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-06-02",
+    "shiftEnd": "2026-06-16",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "f7f05fe9-32ef-4ce8-8fda-c8f4a3aa2348",
+    "projectId": "ksm-seabridge",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-06-02",
+    "shiftEnd": "2026-06-16",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "6f069e55-942e-4379-85f5-accfd5db649e",
+    "projectId": "brucejack-em",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-06-03",
+    "shiftEnd": "2026-06-09",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "0bbb6f1d-8cde-424b-93d0-fea72297ebff",
+    "projectId": "anyox-environmental-monitoring",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-03",
+    "shiftEnd": "2026-06-05",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "849021c0-eb1f-4674-835d-5a50bc62f84c",
+    "projectId": "brucejack-em",
+    "workerId": "devin-clayton",
+    "shiftStart": "2026-06-08",
+    "shiftEnd": "2026-06-11",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "12926e8a-3452-400f-83e9-adb68e874e04",
+    "projectId": "scottie-resources",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-08",
+    "shiftEnd": "2026-06-15",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "8d7f58a8-0067-429a-99f9-311fc8ab2e93",
+    "projectId": "brucejack-em",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-18",
+    "shiftEnd": "2026-06-23",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "b7d0c07f-3d51-4c6c-96f0-ab0128209410",
+    "projectId": "scottie-resources",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-06-22",
+    "shiftEnd": "2026-06-30",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "791f6093-b441-4b58-9eda-62b9e3e3907c",
+    "projectId": "brucejack-em",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-06-23",
+    "shiftEnd": "2026-06-28",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "e89b5a28-2ced-4fe7-badc-0f5e6d286e5e",
+    "projectId": "brucejack-em",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-27",
+    "shiftEnd": "2026-06-27",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "f7bc756f-1587-4118-ad71-f50184265fea",
+    "projectId": "brucejack-em",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-06-28",
+    "shiftEnd": "2026-07-03",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "392f12ec-6e9e-4a44-b4c4-5de04cc43ec3",
+    "projectId": "scottie-resources",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-07-01",
+    "shiftEnd": "2026-07-06",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "1bb03a98-9590-4f7f-abd7-b2aed4c99719",
+    "projectId": "enbridge-sep-williams-lake",
     "workerId": "nate-wilson",
     "shiftStart": "2026-07-02",
-    "shiftEnd": "2026-07-08",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftEnd": "2026-07-20",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "Vegetation and TEM component."
+    "notes": ""
   },
   {
-    "id": "nate-ksm-jul10",
-    "projectId": "ksm-seabridge",
-    "workerId": "nate-wilson",
-    "shiftStart": "2026-07-10",
-    "shiftEnd": "2026-07-24",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Preclear rotation."
-  },
-  {
-    "id": "cole-ksm-aug2",
-    "projectId": "ksm-seabridge",
-    "workerId": "cole-angus",
-    "shiftStart": "2026-08-02",
-    "shiftEnd": "2026-08-14",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Groundwater component."
-  },
-  {
-    "id": "amber-ksm-jul24",
+    "id": "a579a563-a13c-4e75-9da2-bfbfab990d4c",
     "projectId": "ksm-seabridge",
     "workerId": "amber-mckay",
-    "shiftStart": "2026-07-24",
-    "shiftEnd": "2026-08-07",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftStart": "2026-07-07",
+    "shiftEnd": "2026-07-21",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "Preclear rotation."
+    "notes": ""
   },
   {
-    "id": "nate-brucejack-jul24",
-    "projectId": "brucejack-em",
-    "workerId": "nate-wilson",
-    "shiftStart": "2026-07-24",
-    "shiftEnd": "2026-07-27",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Mountain Goat Surveys."
-  },
-  {
-    "id": "nate-ksm-aug7",
-    "projectId": "ksm-seabridge",
-    "workerId": "nate-wilson",
-    "shiftStart": "2026-08-07",
-    "shiftEnd": "2026-08-21",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Preclear rotation."
-  },
-  {
-    "id": "cole-brucejack-aug20",
-    "projectId": "brucejack-em",
+    "id": "b278e19e-bf76-42a7-95fd-f53386a1ae20",
+    "projectId": "cambria-bitter-creek-road-monitoring",
     "workerId": "cole-angus",
-    "shiftStart": "2026-08-20",
-    "shiftEnd": "2026-09-01",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftStart": "2026-07-08",
+    "shiftEnd": "2026-07-22",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "Vegetation - Caleb component."
+    "notes": ""
   },
   {
-    "id": "amber-ksm-aug21",
+    "id": "ec1ee331-3d65-4848-91f2-fba610d836d3",
     "projectId": "ksm-seabridge",
-    "workerId": "amber-mckay",
-    "shiftStart": "2026-08-21",
-    "shiftEnd": "2026-08-28",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
-    "legs": [],
-    "notes": "Preclear rotation."
-  },
-  {
-    "id": "chris-brucejack-aug16",
-    "projectId": "brucejack-em",
     "workerId": "chris-stanley",
-    "shiftStart": "2026-08-16",
-    "shiftEnd": "2026-09-02",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftStart": "2026-07-14",
+    "shiftEnd": "2026-07-28",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "AEMP Sampling."
+    "notes": ""
   },
   {
-    "id": "amber-ksm-sep5",
+    "id": "16aecb4b-a6e2-4e16-abf6-380f6e70c31a",
+    "projectId": "red-mountain-access-rd",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-07-24",
+    "shiftEnd": "2026-08-02",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "4b7627cd-04fd-4e33-a568-b11d7434c32e",
+    "projectId": "scottie-resources",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-07-27",
+    "shiftEnd": "2026-08-02",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "c1926c50-bff8-4165-ac25-dd677e9827d5",
     "projectId": "ksm-seabridge",
     "workerId": "amber-mckay",
-    "shiftStart": "2026-09-05",
-    "shiftEnd": "2026-09-09",
-    "hotel": { "needed": false, "name": "", "address": "", "confirmationNumber": "", "checkIn": "", "checkOut": "", "bookedBy": "", "notes": "" },
+    "shiftStart": "2026-07-28",
+    "shiftEnd": "2026-08-11",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
     "legs": [],
-    "notes": "Meteorology component."
+    "notes": ""
+  },
+  {
+    "id": "e538ce5a-24a7-4e5b-a074-a9ee8187a651",
+    "projectId": "cambria-bitter-creek-road-monitoring",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-08-05",
+    "shiftEnd": "2026-08-19",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "83118243-3113-4c01-ba06-cc653c069cbe",
+    "projectId": "ksm-seabridge",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-08-06",
+    "shiftEnd": "2026-08-18",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "24b58069-9bac-4b9d-aac9-321005fc2533",
+    "projectId": "ksm-seabridge",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-08-11",
+    "shiftEnd": "2026-08-25",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "c6d53dc6-9984-4188-8774-1bdf2943e479",
+    "projectId": "brucejack-em",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-08-24",
+    "shiftEnd": "2026-09-05",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "a369df69-108f-4f3f-9acc-7d87ec187ff3",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-08-25",
+    "shiftEnd": "2026-09-01",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "eb3b0b9f-8821-4ffb-b6dd-6087983e15a7",
+    "projectId": "vacation",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-08-31",
+    "shiftEnd": "2026-09-11",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "f4ba9b34-fc60-408e-a9b0-933bf73dac37",
+    "projectId": "cambria-bitter-creek-road-monitoring",
+    "workerId": "nate-wilson",
+    "shiftStart": "2026-09-02",
+    "shiftEnd": "2026-09-16",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "535527bb-26a5-44c4-9d26-c0cff5c79247",
+    "projectId": "ksm-seabridge",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-09-09",
+    "shiftEnd": "2026-09-13",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "f043ac23-d716-4f02-85e6-8d354ca0286a",
+    "projectId": "brucejack-em",
+    "workerId": "cole-angus",
+    "shiftStart": "2026-09-11",
+    "shiftEnd": "2026-09-15",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "74f7faf4-0346-4559-815e-9f85726b3cb2",
+    "projectId": "cambria-bitter-creek-road-monitoring",
+    "workerId": "amber-mckay",
+    "shiftStart": "2026-09-16",
+    "shiftEnd": "2026-09-30",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "6adcc315-1c65-46cc-8a81-999f12e40fd1",
+    "projectId": "ksm-seabridge",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-09-22",
+    "shiftEnd": "2026-09-25",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
+  },
+  {
+    "id": "a945f9ca-01de-4a40-b0f9-28b9fc372c79",
+    "projectId": "ksm-seabridge",
+    "workerId": "chris-stanley",
+    "shiftStart": "2026-10-13",
+    "shiftEnd": "2026-10-19",
+    "hotel": {
+      "needed": false,
+      "name": "",
+      "address": "",
+      "confirmationNumber": "",
+      "checkIn": "",
+      "checkOut": "",
+      "bookedBy": "",
+      "notes": ""
+    },
+    "legs": [],
+    "notes": ""
   }
 ]

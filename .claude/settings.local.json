@@ -42,7 +42,13 @@
       "Read(//tmp/**)",
       "Bash(env)",
       "Bash(npx eslint *)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "WebFetch(domain:ngc-scheduler.vercel.app)",
+      "mcp__claude-in-chrome__list_connected_browsers",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__javascript_tool",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/projects.json'\\)\\)\")",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/logistics.json'\\)\\)\")"
     ]
   }
 }
