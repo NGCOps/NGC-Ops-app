@@ -1,5 +1,5 @@
 import {
-  getPeople, getShiftPrep, getDeployments, deploymentHasTBD,
+  getPeople, getShiftPrep,
 } from "@/lib/data";
 import { dbGetProjects } from "@/lib/db-data";
 import Link from "next/link";
@@ -8,9 +8,6 @@ import AddProjectModal from "@/components/AddProjectModal";
 
 export const dynamic = "force-dynamic";
 
-function fmt(d: string) {
-  return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
-}
 function fmtShort(d: string) {
   return new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric" });
 }
@@ -24,22 +21,12 @@ export default async function ProjectsPage() {
   const projects = await dbGetProjects();
   const people = getPeople();
   const shiftPreps = getShiftPrep();
-  const deployments = getDeployments();
 
   const today = new Date(); today.setHours(0,0,0,0);
 
   const active = projects.filter((p) => p.status === "active" && new Date(p.endDate + "T12:00:00") >= today);
   const upcoming = projects.filter((p) => p.status === "upcoming");
   const complete = projects.filter((p) => p.status === "complete" || new Date(p.endDate + "T12:00:00") < today);
-
-  let totalOnboardingPending = 0, totalMovementTBD = 0;
-  for (const sp of shiftPreps)
-    for (const ws of Object.values(sp.workerStatus))
-      for (const cs of Object.values(ws))
-        if (cs.status === "pending" || cs.status === "expired") totalOnboardingPending++;
-
-  const upcomingDeps = deployments.filter((d) => new Date(d.shiftEnd + "T12:00:00") >= today);
-  totalMovementTBD = upcomingDeps.filter(deploymentHasTBD).length;
 
   function ProjectCard({ project }: { project: typeof projects[0] }) {
     const col = clientColor(project.client || "");
@@ -48,6 +35,14 @@ export default async function ProjectsPage() {
     const daysToEnd = daysUntil(project.endDate);
     const isStarted = daysToStart <= 0;
     const statusLabel = isStarted ? `${daysToEnd}d left` : `Starts in ${daysToStart}d`;
+
+    const sp = shiftPreps.find((s) => s.projectId === project.id);
+    let onboardingPending = 0;
+    if (sp) {
+      for (const ws of Object.values(sp.workerStatus))
+        for (const cs of Object.values(ws))
+          if (cs.status === "pending" || cs.status === "expired") onboardingPending++;
+    }
 
     return (
       <Link href={`/projects/${project.id}`}>
@@ -70,6 +65,11 @@ export default async function ProjectsPage() {
               <div className="text-xs text-stone-400">{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
             </div>
           </div>
+          {onboardingPending > 0 && (
+            <div className="flex gap-1.5 flex-wrap pt-2 border-t border-stone-100">
+              <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-medium border border-amber-200">⚠ {onboardingPending} onboarding</span>
+            </div>
+          )}
         </div>
       </Link>
     );
@@ -84,29 +84,6 @@ export default async function ProjectsPage() {
         </div>
         <AddProjectModal />
       </div>
-
-      {(totalOnboardingPending > 0 || totalMovementTBD > 0) && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {totalOnboardingPending > 0 && (
-            <Link href="/shift-prep">
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 hover:bg-amber-100/50 transition-colors">
-                <div className="text-2xl font-bold text-amber-600">{totalOnboardingPending}</div>
-                <div className="text-sm font-medium text-amber-700 mt-0.5">Onboarding items pending</div>
-                <div className="text-xs text-stone-400 mt-1">View onboarding →</div>
-              </div>
-            </Link>
-          )}
-          {totalMovementTBD > 0 && (
-            <Link href="/logistics">
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 hover:bg-red-100/50 transition-colors">
-                <div className="text-2xl font-bold text-red-600">{totalMovementTBD}</div>
-                <div className="text-sm font-medium text-red-700 mt-0.5">Movements unplanned</div>
-                <div className="text-xs text-stone-400 mt-1">View movement →</div>
-              </div>
-            </Link>
-          )}
-        </div>
-      )}
 
       <section>
         <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Active</h2>

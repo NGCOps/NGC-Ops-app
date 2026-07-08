@@ -49,7 +49,15 @@
       "mcp__claude-in-chrome__javascript_tool",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/projects.json'\\)\\)\")",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/logistics.json'\\)\\)\")",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel --version)",
+      "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel login)",
+      "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel whoami)",
+      "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel link --yes --project ngc-ops-app --scope ngc-ops)",
+      "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel env pull .env.local --environment production --yes)",
+      "Bash(node --env-file=.env.local -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/projects)",
+      "Bash(kill 53018)"
     ]
   }
 }

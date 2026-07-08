@@ -7,6 +7,7 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CertMatrix from "@/components/CertMatrix";
+import ProjectContacts from "@/components/ProjectContacts";
 
 export const dynamic = "force-dynamic";
 
@@ -124,6 +125,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Contacts */}
+      <section>
+        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-3">Contacts</h2>
+        <ProjectContacts projectId={project.id} contacts={project.contacts ?? []} />
       </section>
 
       {/* Cert compliance matrix */}

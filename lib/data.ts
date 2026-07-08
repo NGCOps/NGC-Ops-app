@@ -9,6 +9,14 @@ import certificationsData from "@/data/certifications.json";
 
 export type ProjectStatus = "active" | "complete" | "on-hold" | "upcoming";
 
+export interface ProjectContact {
+  id: string;
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -22,6 +30,7 @@ export interface Project {
   supervisorId: string;
   requiredCerts?: string[];
   tier?: "high" | "medium" | "standard";
+  contacts?: ProjectContact[];
 }
 
 export function getProjects(): Project[] { return projectsData as Project[]; }
