@@ -57,7 +57,9 @@
       "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel env pull .env.local --environment production --yes)",
       "Bash(node --env-file=.env.local -e ' *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/projects)",
-      "Bash(kill 53018)"
+      "Bash(kill 53018)",
+      "mcp__b8ffad5e-9a9a-4c4c-a014-945ed317acda__get_me",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/projects.json'\\)\\); console.log\\('valid JSON'\\)\")"
     ]
   }
 }

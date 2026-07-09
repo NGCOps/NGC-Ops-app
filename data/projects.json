@@ -101,18 +101,6 @@
     "supervisorId": "jennifer-carter"
   },
   {
-    "id": "3262-bc-parks-lava-bed-park",
-    "name": "3262 BC Parks Lava Bed Park",
-    "client": "BC Parks",
-    "location": "Nass Valley",
-    "status": "active",
-    "startDate": "",
-    "endDate": "",
-    "description": "",
-    "workerIds": [],
-    "supervisorId": ""
-  },
-  {
     "id": "anyox-environmental-monitoring",
     "name": "Anyox Environmental Monitoring",
     "client": "TDG Gold - Anyox Project",
@@ -152,18 +140,6 @@
     "status": "active",
     "startDate": "2026-07-14",
     "endDate": "2026-07-25",
-    "description": "",
-    "workerIds": [],
-    "supervisorId": ""
-  },
-  {
-    "id": "dragon-lake-park",
-    "name": "Dragon Lake Park",
-    "client": "K'alii Aks Timber Corp.",
-    "location": "Nass Valley",
-    "status": "active",
-    "startDate": "",
-    "endDate": "",
     "description": "",
     "workerIds": [],
     "supervisorId": ""
