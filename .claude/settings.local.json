@@ -62,7 +62,8 @@
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./data/projects.json'\\)\\); console.log\\('valid JSON'\\)\")",
       "Bash(NPM_CONFIG_CACHE=/private/tmp/claude-501/-Users-jennifercarter-Documents-ngc-ops-app/d3e9ef60-588e-4327-8f59-688345b504e7/scratchpad/npm-cache npx --yes vercel ls ngc-ops-app --scope ngc-ops)",
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects\" -o /tmp/prod_check.html -w \"%{http_code}\\\\n\")",
-      "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects/ksm-seabridge\")"
+      "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects/ksm-seabridge\")",
+      "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects\")"
     ]
   }
 }
