@@ -1,10 +1,12 @@
 import {
   getPeople, getShiftPrep,
 } from "@/lib/data";
-import { dbGetProjects } from "@/lib/db-data";
+import { dbGetProjects, dbGetCertTypes, dbGetAllCertifications } from "@/lib/db-data";
+import type { Certification } from "@/lib/data";
 import Link from "next/link";
 import { clientColor } from "@/lib/colors";
 import AddProjectModal from "@/components/AddProjectModal";
+import RequiredCertsButton from "@/components/RequiredCertsButton";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +20,16 @@ function daysUntil(d: string) {
 }
 
 export default async function ProjectsPage() {
-  const projects = await dbGetProjects();
+  const [projects, certTypes, allCerts] = await Promise.all([
+    dbGetProjects(), dbGetCertTypes(), dbGetAllCertifications(),
+  ]);
   const people = getPeople();
   const shiftPreps = getShiftPrep();
+
+  const certsByWorker: Record<string, Certification[]> = {};
+  for (const c of allCerts) {
+    (certsByWorker[c.workerId] ??= []).push(c);
+  }
 
   const today = new Date(); today.setHours(0,0,0,0);
 
@@ -44,6 +53,10 @@ export default async function ProjectsPage() {
           if (cs.status === "pending" || cs.status === "expired") onboardingPending++;
     }
 
+    const requiredCertTypes = (project.requiredCerts ?? [])
+      .map((cid) => certTypes.find((ct) => ct.id === cid))
+      .filter(Boolean) as typeof certTypes;
+
     return (
       <Link href={`/projects/${project.id}`}>
         <div className="bg-white rounded-xl border border-stone-200 p-4 flex flex-col gap-2 hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer h-full" style={{ borderLeftWidth: "4px", borderLeftColor: col.border }}>
@@ -65,9 +78,14 @@ export default async function ProjectsPage() {
               <div className="text-xs text-stone-400">{workers.length} worker{workers.length !== 1 ? "s" : ""}</div>
             </div>
           </div>
-          {onboardingPending > 0 && (
-            <div className="flex gap-1.5 flex-wrap pt-2 border-t border-stone-100">
-              <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-medium border border-amber-200">⚠ {onboardingPending} onboarding</span>
+          {(onboardingPending > 0 || requiredCertTypes.length > 0) && (
+            <div className="flex items-start gap-1.5 flex-wrap pt-2 border-t border-stone-100">
+              {onboardingPending > 0 && (
+                <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-medium border border-amber-200">⚠ {onboardingPending} onboarding</span>
+              )}
+              {requiredCertTypes.length > 0 && (
+                <RequiredCertsButton requiredCerts={requiredCertTypes} workers={workers as { id: string; name: string }[]} certsByWorker={certsByWorker} />
+              )}
             </div>
           )}
         </div>
