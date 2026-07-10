@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { projectColor } from "@/lib/colors";
 import type { Deployment, Project, Person } from "@/lib/data";
@@ -27,7 +30,19 @@ export default function ScheduleGantt({ deployments, projects, people }: {
   projects: Project[];
   people: Person[];
 }) {
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+
   if (deployments.length === 0) return null;
+
+  function toggleProject(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }
+
+  const filteredDeployments = selected.size === 0 ? deployments : deployments.filter((d) => selected.has(d.projectId));
 
   const today = new Date(); today.setHours(0, 0, 0, 0);
 
@@ -57,22 +72,36 @@ export default function ScheduleGantt({ deployments, projects, people }: {
   }
 
   const todayPct = pct(today);
-  const workerIds = [...new Set(deployments.map((d) => d.workerId))];
+  const workerIds = [...new Set(filteredDeployments.map((d) => d.workerId))];
 
   return (
     <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
       <div className="px-5 py-3 border-b border-stone-100">
-        <h2 className="font-semibold text-stone-800 text-sm">Schedule</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="font-semibold text-stone-800 text-sm">Schedule</h2>
+          {selected.size > 0 && (
+            <button onClick={() => setSelected(new Set())} className="text-[10px] text-stone-400 hover:text-stone-600 underline">
+              Clear filter
+            </button>
+          )}
+        </div>
         <div className="flex gap-4 mt-2 flex-wrap">
           {[...new Map(deployments.map((d) => [d.projectId, projects.find((p) => p.id === d.projectId)])).entries()]
             .filter(([, p]) => p)
             .map(([id, p]) => {
               const col = projectColor(id);
+              const active = selected.size === 0 || selected.has(id);
               return (
-                <div key={id} className="flex items-center gap-1.5">
-                  <div className="w-3 h-2 rounded-sm" style={{ backgroundColor: col.border }} />
-                  <span className="text-[10px] text-stone-400">{p!.name}</span>
-                </div>
+                <button
+                  key={id}
+                  onClick={() => toggleProject(id)}
+                  className="flex items-center gap-1.5 transition-opacity hover:opacity-80"
+                  style={{ opacity: active ? 1 : 0.35 }}
+                  title={selected.has(id) ? `Showing only ${p!.name} — click to remove` : `Filter to ${p!.name}`}
+                >
+                  <div className="w-3 h-2 rounded-sm shrink-0" style={{ backgroundColor: col.border }} />
+                  <span className="text-[10px] text-stone-500">{p!.name}</span>
+                </button>
               );
             })}
           {[
@@ -101,10 +130,14 @@ export default function ScheduleGantt({ deployments, projects, people }: {
             </span>
           </div>
 
+          {workerIds.length === 0 && (
+            <p className="text-sm text-stone-400 italic px-1">No deployments match this filter.</p>
+          )}
+
           <div className="space-y-3">
             {workerIds.map((workerId) => {
               const worker = people.find((p) => p.id === workerId);
-              const workerDeps = deployments.filter((d) => d.workerId === workerId);
+              const workerDeps = filteredDeployments.filter((d) => d.workerId === workerId);
 
               return (
                 <div key={workerId} className="flex items-center gap-3">
