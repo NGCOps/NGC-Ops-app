@@ -100,6 +100,16 @@
     "notes": "BC Hydro ENV-050 Approved Work Practices for Managing Riparian Vegetation"
   },
   {
+    "id": "cole-bear-awareness",
+    "workerId": "cole-angus",
+    "certTypeId": "bear-awareness",
+    "issuedDate": "2026-07-07",
+    "expiryDate": "2029-07-07",
+    "source": "email",
+    "documentRef": "",
+    "notes": "Canada Safety Training Centre — Cert #639190353210"
+  },
+  {
     "id": "nate-supervising-for-safety",
     "workerId": "nate-wilson",
     "certTypeId": "supervising-for-safety",
