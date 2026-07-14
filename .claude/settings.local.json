@@ -64,7 +64,8 @@
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects\" -o /tmp/prod_check.html -w \"%{http_code}\\\\n\")",
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects/ksm-seabridge\")",
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects\")",
-      "Bash(python3 -m json.tool)"
+      "Bash(python3 -m json.tool)",
+      "mcp__b8ffad5e-9a9a-4c4c-a014-945ed317acda__sharepoint_folder_search"
     ]
   }
 }
