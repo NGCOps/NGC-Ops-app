@@ -7,8 +7,7 @@ const links = [
   { href: "/", label: "Dashboard" },
   { href: "/projects", label: "Projects" },
   { href: "/people", label: "People" },
-  { href: "/shift-prep", label: "Onboarding" },
-  { href: "/logistics", label: "Movement" },
+{ href: "/logistics", label: "Movement" },
 ];
 
 export default function Nav() {
