@@ -1,18 +1,118 @@
 [
   {
+    "id": "cambria-bitter-creek-road-monitoring",
+    "name": "Cambria – Bitter Creek Road Monitoring",
+    "client": "Cambria Gold",
+    "location": "Stewart, BC",
+    "status": "active",
+    "startDate": "2026-07-08",
+    "endDate": "2026-09-30",
+    "description": "Road monitoring program along Bitter Creek Road for Cambria Gold.",
+    "workerIds": ["cole-angus", "chris-stanley", "nate-wilson", "amber-mckay"],
+    "supervisorId": "jennifer-carter",
+    "requiredCerts": ["basic-first-aid"],
+    "tier": "standard"
+  },
+  {
+    "id": "cambria-resources-water-quality",
+    "name": "Cambria – Groundwater Monitoring",
+    "client": "Cambria Gold",
+    "location": "Stewart, BC",
+    "status": "active",
+    "startDate": "2026-07-14",
+    "endDate": "2026-07-25",
+    "description": "Groundwater monitoring program for Cambria Gold.",
+    "workerIds": [],
+    "supervisorId": "jennifer-carter",
+    "requiredCerts": ["basic-first-aid"],
+    "tier": "standard"
+  },
+  {
+    "id": "ksm-seabridge",
+    "name": "ERM – KSM Seabridge",
+    "client": "ERM Sustainability Consultants",
+    "location": "KSM Mine Site, BC",
+    "status": "active",
+    "startDate": "2026-05-08",
+    "endDate": "2026-10-31",
+    "programs": ["Preclear", "Groundwater", "Goat / Marmot", "Meteorology"],
+    "description": "Pre-clearing and environmental monitoring at KSM (Kerr-Sulphurets-Mitchell). Loc: Camp 11. Components include pre-clearing, goat/marmot surveys, wildlife-bear, groundwater, and meteorology.",
+    "workerIds": ["chris-stanley", "nate-wilson", "amber-mckay", "cole-angus"],
+    "supervisorId": "jennifer-carter",
+    "requiredCerts": [
+      "da-test",
+      "ksm-leadership-orientation",
+      "ksm-project-orientation",
+      "ksm-badge-access",
+      "whmis",
+      "drivers-license"
+    ],
+    "tier": "high"
+  },
+  {
+    "id": "brucejack-em",
+    "name": "ERM – Brucejack Environmental Monitoring",
+    "client": "ERM Sustainability Consultants",
+    "location": "Brucejack Mine, BC",
+    "status": "active",
+    "startDate": "2026-05-30",
+    "endDate": "2026-09-30",
+    "programs": ["Mountain Goat Surveys", "AEMP Sampling", "Vegetation", "Madeline Prater"],
+    "description": "Environmental monitoring program at Brucejack Mine. Benton Dalgleish (ERM) is the site contact.",
+    "workerIds": ["cole-angus", "devin-clayton", "amber-mckay", "nate-wilson"],
+    "supervisorId": "jennifer-carter",
+    "tier": "high"
+  },
+  {
+    "id": "scottie-resources",
+    "name": "SLR – Scottie Resources Baseline",
+    "client": "SLR Consultants",
+    "location": "Scottie Gold Mine, BC",
+    "status": "active",
+    "startDate": "2026-03-26",
+    "endDate": "2026-10-31",
+    "description": "Baseline environmental monitoring for Scottie Resources. Field contact: Megan Charlton (mcharlton@slrconsulting.com). SLR field support includes wildlife, SWQ, and hydrogeology components.",
+    "workerIds": ["chris-stanley", "amber-mckay", "cole-angus"],
+    "supervisorId": "jennifer-carter",
+    "tier": "standard"
+  },
+  {
+    "id": "red-mountain-access-rd",
+    "name": "SLR – Red Mountain Access Rd",
+    "client": "SLR Consultants",
+    "location": "Stewart, BC",
+    "status": "active",
+    "startDate": "2026-07-02",
+    "endDate": "2026-08-02",
+    "programs": ["Acoustics Program", "Weather Station", "Surface Water"],
+    "description": "Access road monitoring and environmental programs at Red Mountain.",
+    "workerIds": ["nate-wilson"],
+    "supervisorId": "jennifer-carter",
+    "tier": "standard"
+  },
+  {
+    "id": "enbridge-sep-williams-lake",
+    "name": "McTavish – Enbridge SEP",
+    "client": "McTavish",
+    "location": "Williams Lake, BC",
+    "status": "active",
+    "startDate": "2026-07-02",
+    "endDate": "2026-07-20",
+    "description": "Enbridge SEP program out of Williams Lake. McTavish contract.",
+    "workerIds": ["nate-wilson"],
+    "supervisorId": "jennifer-carter",
+    "tier": "standard"
+  },
+  {
     "id": "enbridge-sunrise",
-    "name": "Enbridge Sunrise",
-    "client": "Enbridge / McTavish",
+    "name": "McTavish – Enbridge Sunrise",
+    "client": "McTavish",
     "location": "Fort St. John, BC",
     "status": "active",
     "startDate": "2026-05-01",
     "endDate": "2026-09-30",
     "description": "Pipeline construction and maintenance work. Enbridge contractor compliance required for all workers. Jackie Schmitke (McTavish) is the site contact for safety requirements.",
-    "workerIds": [
-      "nate-wilson",
-      "chris-stanley",
-      "amber-mckay"
-    ],
+    "workerIds": ["nate-wilson", "chris-stanley", "amber-mckay"],
     "supervisorId": "jennifer-carter",
     "requiredCerts": [
       "da-test",
@@ -28,148 +128,40 @@
     "tier": "high"
   },
   {
-    "id": "scottie-resources",
-    "name": "Scottie Resources Baseline",
-    "client": "Scottie Gold / SLR Consulting",
-    "location": "Scottie Gold Mine, BC",
+    "id": "vacation",
+    "name": "Vacation",
+    "client": "Internal",
+    "location": "",
     "status": "active",
-    "startDate": "2026-03-26",
-    "endDate": "2026-10-31",
-    "description": "Baseline environmental monitoring for Scottie Resources. Field contact: Megan Charlton (mcharlton@slrconsulting.com). SLR field support includes wildlife, SWQ, and hydrogeology components.",
-    "workerIds": [
-      "chris-stanley",
-      "amber-mckay",
-      "cole-angus"
-    ],
-    "supervisorId": "jennifer-carter",
-    "tier": "standard"
-  },
-  {
-    "id": "brucejack-em",
-    "name": "Brucejack Environmental Monitoring",
-    "client": "ERM / Newmont (Brucejack Mine)",
-    "location": "Brucejack Mine, BC",
-    "status": "active",
-    "startDate": "2026-05-30",
-    "endDate": "2026-09-30",
-    "description": "Environmental monitoring program at Brucejack Mine. Various components: wildlife surveys, fish (EF), vegetation, Arch/Veg (David LeBeau), AEMP sampling, mountain goat surveys. Benton Dalgleish (ERM) is the site contact.",
-    "workerIds": [
-      "cole-angus",
-      "devin-clayton",
-      "amber-mckay",
-      "nate-wilson"
-    ],
-    "supervisorId": "jennifer-carter",
-    "tier": "high"
-  },
-  {
-    "id": "ksm-seabridge",
-    "name": "KSM Seabridge",
-    "client": "Seabridge Gold",
-    "location": "KSM Mine Site, BC",
-    "status": "active",
-    "startDate": "2026-05-08",
-    "endDate": "2026-10-31",
-    "description": "Pre-clearing and environmental monitoring at KSM (Kerr-Sulphurets-Mitchell). Loc: Camp 11. Components include pre-clearing, goat/marmot surveys, wildlife-bear, groundwater, and meteorology.",
-    "workerIds": [
-      "chris-stanley",
-      "nate-wilson",
-      "amber-mckay",
-      "cole-angus"
-    ],
-    "supervisorId": "jennifer-carter",
-    "requiredCerts": [
-      "da-test",
-      "ksm-leadership-orientation",
-      "ksm-project-orientation",
-      "ksm-badge-access",
-      "whmis",
-      "drivers-license"
-    ],
-    "tier": "high"
-  },
-  {
-    "id": "prgt-pipeline",
-    "name": "PRGT Pipeline",
-    "client": "Western LNG / Prince Rupert Gas Transmission",
-    "location": "Nisga'a Territory, BC",
-    "status": "upcoming",
-    "startDate": "2026-04-01",
-    "endDate": "2026-12-31",
-    "description": "Prince Rupert Gas Transmission project through Nisga'a territory. Environmental and Indigenous engagement requirements.",
-    "workerIds": [],
-    "supervisorId": "jennifer-carter"
+    "internal": true,
+    "startDate": "2026-05-22",
+    "endDate": "2026-09-11",
+    "description": "Staff vacation time — kept in scheduler to prevent conflicts.",
+    "workerIds": ["amber-mckay", "chris-stanley"],
+    "supervisorId": ""
   },
   {
     "id": "anyox-environmental-monitoring",
     "name": "Anyox Environmental Monitoring",
-    "client": "TDG Gold - Anyox Project",
+    "client": "TDG Gold",
     "location": "Anyox",
-    "status": "active",
+    "status": "complete",
     "startDate": "2026-05-28",
     "endDate": "2026-06-05",
     "description": "",
-    "workerIds": [
-      "amber-mckay",
-      "chris-stanley"
-    ],
+    "workerIds": ["amber-mckay", "chris-stanley"],
     "supervisorId": ""
   },
   {
-    "id": "cambria-bitter-creek-road-monitoring",
-    "name": "Cambria - Bitter Creek Road Monitoring",
-    "client": "Cambria Resources",
-    "location": "Stewart",
-    "status": "active",
-    "startDate": "2026-07-08",
-    "endDate": "2026-09-30",
+    "id": "unbc-em-training",
+    "name": "UNBC EM Training",
+    "client": "KATC",
+    "location": "Laxgalts'ap",
+    "status": "complete",
+    "startDate": "2026-04-13",
+    "endDate": "2026-04-24",
     "description": "",
-    "workerIds": [
-      "cole-angus",
-      "chris-stanley",
-      "nate-wilson",
-      "amber-mckay"
-    ],
-    "supervisorId": ""
-  },
-  {
-    "id": "cambria-resources-water-quality",
-    "name": "Cambria Resources - Water Quality",
-    "client": "Cambria Resources",
-    "location": "",
-    "status": "active",
-    "startDate": "2026-07-14",
-    "endDate": "2026-07-25",
-    "description": "",
-    "workerIds": [],
-    "supervisorId": ""
-  },
-  {
-    "id": "enbridge-sep-williams-lake",
-    "name": "Enbridge SEP - Williams Lake",
-    "client": "McTavish Consultants",
-    "location": "Williams Lake",
-    "status": "active",
-    "startDate": "2026-07-02",
-    "endDate": "2026-07-20",
-    "description": "",
-    "workerIds": [
-      "nate-wilson"
-    ],
-    "supervisorId": ""
-  },
-  {
-    "id": "katc-forestry-general",
-    "name": "KATC - Forestry General",
-    "client": "K'alii Aks Timber Corporation",
-    "location": "",
-    "status": "active",
-    "startDate": "2026-05-12",
-    "endDate": "2026-06-05",
-    "description": "",
-    "workerIds": [
-      "sean-harris"
-    ],
+    "workerIds": ["chris-stanley", "nate-wilson"],
     "supervisorId": ""
   },
   {
@@ -177,21 +169,43 @@
     "name": "Ksi Lisims Environmental Monitoring",
     "client": "Stantec",
     "location": "Nass Area",
-    "status": "active",
+    "status": "complete",
     "startDate": "2026-04-16",
     "endDate": "2026-04-22",
     "description": "",
-    "workerIds": [
-      "nate-wilson"
-    ],
+    "workerIds": ["nate-wilson"],
     "supervisorId": ""
+  },
+  {
+    "id": "katc-forestry-general",
+    "name": "KATC Forestry General",
+    "client": "K'alii Aks Timber Corporation",
+    "location": "",
+    "status": "complete",
+    "startDate": "2026-05-12",
+    "endDate": "2026-06-05",
+    "description": "",
+    "workerIds": ["sean-harris"],
+    "supervisorId": ""
+  },
+  {
+    "id": "prgt-pipeline",
+    "name": "PRGT Pipeline",
+    "client": "Western LNG / Prince Rupert Gas Transmission",
+    "location": "Nisga'a Territory, BC",
+    "status": "on-hold",
+    "startDate": "2026-04-01",
+    "endDate": "2026-12-31",
+    "description": "Prince Rupert Gas Transmission project through Nisga'a territory.",
+    "workerIds": [],
+    "supervisorId": "jennifer-carter"
   },
   {
     "id": "nvtl-environmental-monitoring",
     "name": "NVTL Environmental Monitoring",
     "client": "EDI Environmental Dynamics",
     "location": "Nass Area",
-    "status": "active",
+    "status": "on-hold",
     "startDate": "",
     "endDate": "",
     "description": "",
@@ -203,55 +217,11 @@
     "name": "PRGT Environmental Monitoring",
     "client": "Stantec",
     "location": "Nass Area",
-    "status": "active",
+    "status": "on-hold",
     "startDate": "",
     "endDate": "",
     "description": "",
     "workerIds": [],
-    "supervisorId": ""
-  },
-  {
-    "id": "red-mountain-access-rd",
-    "name": "Red Mountain Access Rd.",
-    "client": "SLR Consulting",
-    "location": "Stewart",
-    "status": "active",
-    "startDate": "2026-07-02",
-    "endDate": "2026-08-02",
-    "description": "",
-    "workerIds": [
-      "nate-wilson"
-    ],
-    "supervisorId": ""
-  },
-  {
-    "id": "unbc-em-training",
-    "name": "UNBC EM Training",
-    "client": "KATC",
-    "location": "Laxgalts'ap",
-    "status": "active",
-    "startDate": "2026-04-13",
-    "endDate": "2026-04-24",
-    "description": "",
-    "workerIds": [
-      "chris-stanley",
-      "nate-wilson"
-    ],
-    "supervisorId": ""
-  },
-  {
-    "id": "vacation",
-    "name": "Vacation",
-    "client": "KATC Internal",
-    "location": "",
-    "status": "active",
-    "startDate": "2026-05-22",
-    "endDate": "2026-09-11",
-    "description": "",
-    "workerIds": [
-      "amber-mckay",
-      "chris-stanley"
-    ],
     "supervisorId": ""
   }
 ]

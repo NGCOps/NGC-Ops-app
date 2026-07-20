@@ -30,6 +30,8 @@ export interface Project {
   supervisorId: string;
   requiredCerts?: string[];
   tier?: "high" | "medium" | "standard";
+  internal?: boolean;
+  programs?: string[];
   contacts?: ProjectContact[];
 }
 

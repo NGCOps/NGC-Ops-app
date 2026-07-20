@@ -65,7 +65,8 @@
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects/ksm-seabridge\")",
       "Bash(curl -s \"https://ngc-ops-app.vercel.app/projects\")",
       "Bash(python3 -m json.tool)",
-      "mcp__b8ffad5e-9a9a-4c4c-a014-945ed317acda__sharepoint_folder_search"
+      "mcp__b8ffad5e-9a9a-4c4c-a014-945ed317acda__sharepoint_folder_search",
+      "Bash(curl -s -X POST http://localhost:3000/api/seed)"
     ]
   }
 }

@@ -32,7 +32,7 @@ export default function Dashboard() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
 
   const activeProjects = projects.filter(
-    (p) => p.status === "active" && new Date(p.endDate + "T12:00:00") >= today
+    (p) => p.status === "active" && !p.internal && new Date(p.endDate + "T12:00:00") >= today
   );
   const upcomingDeployments = deployments.filter((d) => new Date(d.shiftEnd + "T12:00:00") >= today);
 

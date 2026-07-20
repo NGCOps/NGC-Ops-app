@@ -33,9 +33,15 @@ export default async function ProjectsPage() {
 
   const today = new Date(); today.setHours(0,0,0,0);
 
-  const active = projects.filter((p) => p.status === "active" && new Date(p.endDate + "T12:00:00") >= today);
-  const upcoming = projects.filter((p) => p.status === "upcoming");
-  const complete = projects.filter((p) => p.status === "complete" || new Date(p.endDate + "T12:00:00") < today);
+  const active = projects.filter((p) => p.status === "active" && !p.internal && new Date(p.endDate + "T12:00:00") >= today);
+  const upcoming = projects.filter((p) => p.status === "upcoming" && !p.internal);
+  const complete = projects.filter((p) => !p.internal && (p.status === "complete" || (p.endDate && new Date(p.endDate + "T12:00:00") < today)));
+
+  // Group active projects by client
+  const activeByClient: Record<string, typeof projects> = {};
+  for (const p of active.sort((a, b) => a.client.localeCompare(b.client) || a.startDate.localeCompare(b.startDate))) {
+    (activeByClient[p.client] ??= []).push(p);
+  }
 
   function ProjectCard({ project }: { project: typeof projects[0] }) {
     const col = clientColor(project.client || "");
@@ -103,11 +109,22 @@ export default async function ProjectsPage() {
         <AddProjectModal />
       </div>
 
-      <section>
-        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Active</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {active.sort((a, b) => a.startDate.localeCompare(b.startDate)).map((p) => <ProjectCard key={p.id} project={p} />)}
-        </div>
+      <section className="space-y-6">
+        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Active</h2>
+        {Object.entries(activeByClient).map(([client, clientProjects]) => {
+          const col = clientColor(client);
+          return (
+            <div key={client}>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: col.border }} />
+                <h3 className="text-sm font-semibold text-stone-700">{client}</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {clientProjects.map((p) => <ProjectCard key={p.id} project={p} />)}
+              </div>
+            </div>
+          );
+        })}
       </section>
 
       {upcoming.length > 0 && (

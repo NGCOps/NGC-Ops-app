@@ -26,8 +26,17 @@ export function projectColor(id: string) {
   return PALETTE[hashId(id) % PALETTE.length];
 }
 
-// Color by client — normalizes to first word so "ERM / Newmont" and "ERM" get the same color
+// Explicit client color map — keyed by first word of client name (lowercase)
+const CLIENT_MAP: Record<string, { bg: string; text: string; border: string }> = {
+  cambria:  { bg: "#78350f", text: "#fde68a", border: "#d97706" }, // amber
+  erm:      { bg: "#134e4a", text: "#99f6e4", border: "#0d9488" }, // teal
+  slr:      { bg: "#3b0764", text: "#e9d5ff", border: "#7c3aed" }, // violet
+  mctavish: { bg: "#1e3a8a", text: "#bfdbfe", border: "#2563eb" }, // blue
+  internal: { bg: "#1e293b", text: "#94a3b8", border: "#475569" }, // slate
+};
+
+// Color by client — normalizes to first word so "ERM Sustainability" and "ERM" get the same color
 export function clientColor(client: string) {
   const key = (client || "").trim().split(/[\s/,(]+/)[0].toLowerCase();
-  return PALETTE[hashId(key) % PALETTE.length];
+  return CLIENT_MAP[key] ?? PALETTE[hashId(key) % PALETTE.length];
 }
